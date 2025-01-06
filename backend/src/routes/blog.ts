@@ -114,7 +114,21 @@ blogRoutes.get("/bulk", async (c) => {
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const blogs = await prisma.post.findMany();
+    const blogs = await prisma.post.findMany({
+      select: {
+        title: true,
+        id: true,
+        published: true,
+        content: true,
+        date: true,
+        edited: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
     return c.json({ blogs }, 200);
   } catch (e) {
     return c.json({ message: "Something Unexpected Occur" }, 500);
@@ -150,6 +164,19 @@ blogRoutes.get("/:id", async (c) => {
       where: {
         id: id,
       },
+      select: {
+        title: true,
+        id: true,
+        published: true,
+        content: true,
+        date: true,
+        edited: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      }
     });
     return c.json(
       {

@@ -59,7 +59,7 @@ const quotes = [
     company: "Microsoft",
   },
   {
-    content: "It’s not about ideas. It’s about making ideas happen.",
+    content: "It's not about ideas. It's about making ideas happen.",
     author: "Scott Belsky",
     company: "Behance",
   },
@@ -70,7 +70,7 @@ const quotes = [
   },
   {
     content:
-      "You don’t need to have a 100-person company to develop that idea.",
+      "You don't need to have a 100-person company to develop that idea.",
     author: "Larry Page",
     company: "Google",
   },
@@ -117,13 +117,13 @@ const quotes = [
   },
   {
     content:
-      "A company shouldn’t get addicted to being shiny because shiny doesn’t last.",
+      "A company shouldn't get addicted to being shiny because shiny doesn't last.",
     author: "Jeff Bezos",
     company: "Amazon",
   },
   {
     content:
-      "It’s not about money. It’s about the people you have, and how you’re led.",
+      "It's not about money. It's about the people you have, and how you're led.",
     author: "Steve Jobs",
     company: "Apple",
   },
@@ -135,7 +135,7 @@ const quotes = [
   },
   {
     content:
-      "If you are not embarrassed by the first version of your product, you’ve launched too late.",
+      "If you are not embarrassed by the first version of your product, you've launched too late.",
     author: "Reid Hoffman",
     company: "LinkedIn",
   },
@@ -165,7 +165,7 @@ const quotes = [
     company: "Quoted by Apple",
   },
   {
-    content: "What would you do if you weren’t afraid?",
+    content: "What would you do if you weren't afraid?",
     author: "Sheryl Sandberg",
     company: "Facebook",
   },
@@ -183,12 +183,12 @@ const quotes = [
   },
   {
     content:
-      "The question isn’t who is going to let me; it’s who is going to stop me.",
+      "The question isn't who is going to let me; it's who is going to stop me.",
     author: "Ayn Rand",
     company: "Philosophy Writer",
   },
   {
-    content: "You miss 100% of the shots you don’t take.",
+    content: "You miss 100% of the shots you don't take.",
     author: "Wayne Gretzky",
     company: "Hockey Hall of Fame",
   },
@@ -226,7 +226,7 @@ const quotes = [
   },
   {
     content:
-      "Whether you think you can, or you think you can’t – you’re right.",
+      "Whether you think you can, or you think you can't – you're right.",
     author: "Henry Ford",
     company: "Ford Motor Company",
   },
@@ -237,7 +237,7 @@ const quotes = [
     company: "Author and Philosopher",
   },
   {
-    content: "Don’t be afraid to give up the good to go for the great.",
+    content: "Don't be afraid to give up the good to go for the great.",
     author: "John D. Rockefeller",
     company: "Standard Oil",
   },
@@ -248,7 +248,7 @@ const quotes = [
   },
   {
     content:
-      "Business opportunities are like buses; there’s always another one coming.",
+      "Business opportunities are like buses; there's always another one coming.",
     author: "Richard Branson",
     company: "Virgin Group",
   },
