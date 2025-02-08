@@ -6,6 +6,8 @@ import { NotFound } from "./pages/NotFound";
 import Landing from "./pages/Landing";
 import { Blogs } from "./pages/Blogs";
 import { Blog } from "./pages/Blog";
+import { Publish } from "./pages/Publish";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   return (
@@ -14,9 +16,38 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blog/:id" element={<Blog />} />
+          <Route
+            path="/home"
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/blogs"
+            element={
+              <RequireAuth>
+                <Blogs />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/blog/:id"
+            element={
+              <RequireAuth>
+                <Blog />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/publish"
+            element={
+              <RequireAuth>
+                <Publish />
+              </RequireAuth>
+            }
+          />
           <Route path="/" element={<Landing />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

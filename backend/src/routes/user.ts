@@ -50,6 +50,7 @@ userRoutes.post("/signup", async (c) => {
 
     return c.json({ jwt: `Bearer ${token}` }, 200);
   } catch (e) {
+    console.log(e);
     return c.json({ message: "Something Unexpected Occur" }, 500);
   }
 });
@@ -189,6 +190,11 @@ userRoutes.get("/me", async (c) => {
     const user = await prisma.user.findFirst({
       where: {
         email: response.email as string,
+      },
+      select: {
+        email: true,
+        name: true,
+        id: true,
       },
     });
     return c.json(

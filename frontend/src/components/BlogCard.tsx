@@ -54,10 +54,10 @@ function Circle() {
 }
 
 export function Avatar({
-  name,
+  name = "",
   size = "small",
 }: {
-  name: string;
+  name?: string;
   size?: "big" | "small";
 }) {
   return (

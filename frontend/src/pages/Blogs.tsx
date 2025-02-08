@@ -1,5 +1,6 @@
 import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
+import { Spinner } from "../components/Spinner";
 import { useBlogs } from "../hooks";
 
 export interface blogsStructure {
@@ -44,7 +45,7 @@ export const Blogs = () => {
     },
   ];
   // if (loading) {
-  //   return <div>loading</div>;
+  //   return <Spinner />;
   // }
   return (
     <div>
