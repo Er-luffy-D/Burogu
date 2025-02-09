@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { DEV_BACKEND_URL } from "../config";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { infoAtom } from "../store/atom/Information";
 import CryptoJS from "crypto-js";
+import { blogsStructure } from "../pages/Blogs";
 
 export const useBlogs = () => {
   const [loading, setLoading] = useState(true);
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState<blogsStructure[]>([]);
 
   useEffect(() => {
     axios
@@ -27,7 +28,7 @@ export const useBlogs = () => {
   };
 };
 
-export const usePost = (title: string, content: string) => {
+export const usePostBlog = (title: string, content: string) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -68,7 +69,7 @@ export const usePost = (title: string, content: string) => {
   };
 };
 
-export const usePut = (title: string, content: string, id: string) => {
+export const usePutBlog = (title: string, content: string, id: string) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -110,9 +111,44 @@ export const usePut = (title: string, content: string, id: string) => {
   };
 };
 
-export const useInfo = () => {
-  const info = useRecoilState(infoAtom);
-  return info;
+export const useFetchBlog = (id: string) => {
+  const [loading, setLoading] = useState(true);
+  const [blog, setBlog] = useState<{
+    title: string;
+    id: string;
+    published: boolean;
+    content: string;
+    date: string;
+    edited: boolean;
+    author: {
+      name: string;
+    };
+  }>({
+    title: "",
+    id: "",
+    published: false,
+    content: "",
+    date: "",
+    edited: false,
+    author: { name: "" },
+  });
+
+  useEffect(() => {
+    axios
+      .get(`${DEV_BACKEND_URL}/api/v1/blog/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setBlog(res.data.blog);
+        setLoading(false);
+      });
+  }, [id]);
+  return {
+    loading,
+    blog,
+  };
 };
 
 export const useFetchUserInfo = () => {
@@ -124,6 +160,7 @@ export const useFetchUserInfo = () => {
         const token = localStorage.getItem("token");
         if (!token) {
           localStorage.removeItem("user_info");
+          console.log("No token found");
           return;
         }
 

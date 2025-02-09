@@ -1,15 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from "./BlogCard";
 import { useRecoilValue } from "recoil";
 import { infoAtom } from "../store/atom/Information";
+import { useState } from "react";
 
 export const Appbar = () => {
   const user = useRecoilValue(infoAtom);
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
 
   return (
-    <div className="border-b flex justify-between px-10 py-4">
+    <div className="border-b flex justify-between px-2 md:px-10 py-4">
       <div className=" flex flex-col justify-center font-extrabold text-lg md:text-xl">
-        BUROGU
+        <Link to={"/blogs"}>BUROGU</Link>
       </div>
       <div className="flex">
         <Link to={"/publish"} className="flex flex-col justify-center">
@@ -20,7 +31,40 @@ export const Appbar = () => {
             New
           </button>
         </Link>
-        <Avatar size={"big"} name={user.email} />
+        <div className="relative">
+          <button title="User" onClick={toggleMenu}>
+            <Avatar size={"big"} name={user.email} />
+          </button>
+          {menuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+              <Link
+                to="/profile"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                onClick={closeMenu}
+              >
+                Profile
+              </Link>
+              <Link
+                to="/MyBlogs"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                onClick={closeMenu}
+              >
+                My Blogs
+              </Link>
+              <button
+                className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("user_info");
+                  closeMenu();
+                  navigate("/signin");
+                }}
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

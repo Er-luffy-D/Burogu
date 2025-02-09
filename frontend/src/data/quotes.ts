@@ -1,4 +1,4 @@
-const quotes = [
+export const quotes = [
   {
     content: "The best way to predict the future is to invent it.",
     author: "Alan Kay",
@@ -260,4 +260,26 @@ const quotes = [
   },
 ];
 
-export default quotes;
+export const loadingMessages: string[] = [
+  "Brewing fresh content... Just like your morning coffee! ☕",
+  "Loading... Because good blogs take time, unlike instant noodles. 🍜",
+  "Fetching words from the deepest corners of the internet... 🔍",
+  "Hang tight! Our writers are still arguing over commas. ✍️",
+  "Generating wisdom... Please wait while we fact-check ourselves! 🤓",
+  "Blogging magic in progress—hope you're wearing your reading glasses! 🧐",
+  "Loading... because even Shakespeare needed time to write! 📖",
+  "Preparing blog posts... Meanwhile, blink competitions are allowed. 👀",
+  "Almost there! Just convincing the server that words matter. 💾",
+  "Your daily dose of wisdom is buffering... patience, young grasshopper. 🦗",
+  "Hold on! We're still trying to untangle the internet. 🌐",
+  "Words are cooking... We hope you like them well-done! 🍔",
+  "Shuffling letters... Scrabble champions, stay tuned! 🎲",
+  "Downloading creativity... This might take a while. 🎨",
+  "Bringing stories to life... Our servers are writing their own novel. 📚",
+  "Uploading humor... Your laughter is on its way! 😂",
+  "Wait a sec! Our digital typewriter ran out of ink. 🖋️",
+  "Fetching blog wisdom... Even Google is jealous. 🤖",
+  "A wise blogger once said, 'Patience is a virtue.' ⏳",
+  "Wait while we sprinkle some SEO magic! ✨"
+];
+

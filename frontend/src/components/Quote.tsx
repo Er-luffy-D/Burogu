@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import quotes from "../data/quotes";
+import { quotes } from "../data/quotes";
 
 export const Quote = () => {
   const randomQuote = useMemo(() => {

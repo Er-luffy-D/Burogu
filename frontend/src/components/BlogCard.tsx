@@ -64,12 +64,12 @@ export function Avatar({
     <div className="flex flex-col justify-center">
       <div
         className={`relative inline-flex items-center justify-center ${
-          size === "small" ? "w-5 h-5" : "w-10 h-10"
-        } overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 `}
+          size === "small" ? "w-5 h-5 " : "w-10 h-10"
+        } overflow-hidden bg-gray-100 rounded-full dark:bg-blue-950 `}
       >
         <span
           className={`${
-            size == "small" ? "text-sm font-light" : "text-xl font-semibold"
+            size == "small" ? "text-sm font-light " : "text-xl font-semibold"
           } text-gray-600 dark:text-gray-300`}
         >
           {name[0]}

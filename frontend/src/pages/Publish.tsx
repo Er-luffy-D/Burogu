@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button } from "../components/Button";
 import { Appbar } from "../components/Appbar";
-import { usePost } from "../hooks";
+import { usePostBlog } from "../hooks";
 
 export const Publish = () => {
   return (
@@ -18,7 +18,7 @@ export const Post = () => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
 
-  const { BlogPost, loading, message } = usePost(title, content);
+  const { BlogPost, loading, message } = usePostBlog(title, content);
 
   const handleEditorChange = useCallback((value: string) => {
     setContent(value);

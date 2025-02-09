@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Input } from "./Input";
 import { Button } from "./Button";
-import { SigninInput } from "@piyush_007/medium_cl";
+import { SignupInput } from "@piyush_007/medium_cl";
 import { useState } from "react";
 import axios from "axios";
 import { DEV_BACKEND_URL } from "../config";
@@ -9,24 +9,19 @@ import { DEV_BACKEND_URL } from "../config";
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const navigate = useNavigate();
 
-  const [postData, setPostData] = useState<SigninInput>({
+  const [loading, setLoading] = useState(false);
+  const [postData, setPostData] = useState<SignupInput>({
     email: "",
     password: "",
+    name: "",
   });
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
   async function sendRequest() {
+    setLoading(true);
     if (type === "signup") {
-      if (postData.password !== confirmPassword) {
-        setPasswordError("Passwords don't match");
-        setConfirmPasswordError(true);
-        return;
-      }
       if (postData.password.length < 6) {
-        setPasswordError("Password too short");
-        setConfirmPasswordError(true);
+        alert("Password too short");
+        setLoading(false);
         return;
       }
     }
@@ -41,6 +36,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     } catch (e) {
       console.log(e);
       alert("Invalid Credentials");
+      setLoading(false);
     }
   }
 
@@ -87,6 +83,21 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               }));
             }}
           />
+          {type === "signup" && (
+            <>
+              <Input
+                placeholder={"Username"}
+                text={"Name:"}
+                type={"text"}
+                onChange={(e) => {
+                  setPostData((c) => ({
+                    ...c,
+                    name: e.target.value,
+                  }));
+                }}
+              />
+            </>
+          )}
           <Input
             placeholder={"Enter Your Password"}
             text={"Password:"}
@@ -98,33 +109,15 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               }));
             }}
           />
-          {type === "signup" && (
-            <>
-              <Input
-                placeholder={"Confirm Your Password"}
-                text={"Confirm Your Password:"}
-                type={"password"}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                  const isError = e.target.value !== postData.password;
-                  setConfirmPasswordError(isError);
-                  if (!isError) {
-                    setPasswordError("");
-                  }
-                }}
-              />
-              <div>
-                {confirmPasswordError && passwordError && (
-                  <div className="text-red-500 text-sm">{passwordError}</div>
-                )}
-              </div>
-            </>
-          )}
         </div>
         <div className="flex align-middle justify-center w-full mt-2">
           <Button
             text={type === "signup" ? "SIGN UP" : "SIGN IN"}
-            onClick={sendRequest}
+            loading={loading}
+            onClick={() => {
+              setLoading(true);
+              sendRequest();
+            }}
           />
         </div>
       </div>

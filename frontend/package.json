@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@piyush_007/medium_cl": "^1.0.0",
+    "@piyush_007/medium_cl": "^1.0.1",
     "axios": "^1.7.9",
     "crypto-js": "^4.2.0",
     "react": "^18.3.1",
