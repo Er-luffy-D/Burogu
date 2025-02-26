@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-retro {
+    font-family: 'Press Start 2P', cursive;
+    color: black;
+    text-shadow: 2px 2px 1px lime ;
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+.retro-loader {
+    font-family: 'Courier New', Courier, monospace;
+    color: green;
+    font-size: .7rem;
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: green;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .retro-loader {
+      font-size: 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .retro-loader {
+      padding-left: 5%;}
+  }

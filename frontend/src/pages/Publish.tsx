@@ -1,9 +1,11 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button } from "../components/Button";
 import { Appbar } from "../components/Appbar";
 import { usePostBlog } from "../hooks";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const Publish = () => {
   return (
@@ -17,8 +19,49 @@ export const Publish = () => {
 export const Post = () => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
-  const { BlogPost, loading, message } = usePostBlog(title, content);
+  const { BlogPost, loading, message, status } = usePostBlog(title, content);
+
+  const notify = useCallback(() => {
+    if (status === "1") {
+      toast.dismiss();
+      toast.success("Post Success", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    } else if (status === "2") {
+      toast.dismiss();
+      toast.error("Post Failed", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+    }
+  }, [status]);
+
+  useEffect(() => {
+    notify();
+    if (status === "1") {
+      const timer = setTimeout(() => {
+        navigate("/blogs");
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [status, navigate, notify]);
 
   const handleEditorChange = useCallback((value: string) => {
     setContent(value);
@@ -54,6 +97,19 @@ export const Post = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </div>
   );
 };

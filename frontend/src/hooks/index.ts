@@ -8,6 +8,7 @@ import { blogsStructure } from "../pages/Blogs";
 
 export const useBlogs = () => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [blogs, setBlogs] = useState<blogsStructure[]>([]);
 
   useEffect(() => {
@@ -20,18 +21,24 @@ export const useBlogs = () => {
       .then((res) => {
         setBlogs(res.data.blogs);
         setLoading(false);
+      })
+      .catch((err) => {
+        setError(true);
+        setLoading(false);
+        console.log(err);
       });
   }, []);
   return {
     loading,
     blogs,
+    error,
   };
 };
 
 export const usePostBlog = (title: string, content: string) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [status, setStatus] = useState("0");
   const input = useMemo(
     () => ({
       title: title,
@@ -42,6 +49,7 @@ export const usePostBlog = (title: string, content: string) => {
 
   const BlogPost = useCallback(() => {
     setLoading(true);
+    setStatus("0");
     setMessage("");
     axios
       .post(`${DEV_BACKEND_URL}/api/v1/blog`, input, {
@@ -49,12 +57,13 @@ export const usePostBlog = (title: string, content: string) => {
           Authorization: `${localStorage.getItem("token")}`,
         },
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        setStatus("1");
         setMessage("Blog post created successfully!");
       })
       .catch((err) => {
         console.log(err);
+        setStatus("2");
         setMessage("Failed to create blog post. Please try again.");
       })
       .finally(() => {
@@ -66,12 +75,14 @@ export const usePostBlog = (title: string, content: string) => {
     BlogPost,
     loading,
     message,
+    status,
   };
 };
 
 export const usePutBlog = (title: string, content: string, id: string) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("0");
 
   const input = useMemo(
     () => ({
@@ -84,6 +95,7 @@ export const usePutBlog = (title: string, content: string, id: string) => {
 
   const BlogPut = useCallback(() => {
     setLoading(true);
+    setStatus("0");
     setMessage("");
     axios
       .put(`${DEV_BACKEND_URL}/api/v1/blog`, input, {
@@ -93,10 +105,12 @@ export const usePutBlog = (title: string, content: string, id: string) => {
       })
       .then((res) => {
         console.log(res);
+        setStatus("1");
         setMessage("Blog post updated successfully!");
       })
       .catch((err) => {
         console.log(err);
+        setStatus("2");
         setMessage("Failed to update blog post. Please try again.");
       })
       .finally(() => {
@@ -108,10 +122,11 @@ export const usePutBlog = (title: string, content: string, id: string) => {
     BlogPut,
     loading,
     message,
+    status,
   };
 };
 
-export const useFetchBlog = (id: string) => {
+export const useFetchBlog = (id: string | undefined) => {
   const [loading, setLoading] = useState(true);
   const [blog, setBlog] = useState<{
     title: string;
@@ -122,6 +137,7 @@ export const useFetchBlog = (id: string) => {
     edited: boolean;
     author: {
       name: string;
+      fun_fact: string;
     };
   }>({
     title: "",
@@ -130,7 +146,7 @@ export const useFetchBlog = (id: string) => {
     content: "",
     date: "",
     edited: false,
-    author: { name: "" },
+    author: { name: "", fun_fact: "" },
   });
 
   useEffect(() => {

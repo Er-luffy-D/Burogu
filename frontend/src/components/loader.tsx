@@ -1,5 +1,6 @@
 import car from "../assets/car.svg";
 import { loadingMessages } from "../data/quotes";
+
 export const Loader_Button = () => {
   return (
     <svg
@@ -24,7 +25,11 @@ export const Loader_Button = () => {
 export const Loading_Screen = () => {
   return (
     <div className="flex flex-col items-center">
-      <img src={car} alt="Loading" className="h-[100%] md:h-[40%]" />
+      <img
+        src={car}
+        alt="Loading"
+        className="h-[100%] md:h-[40%] w-full md:w-1/2"
+      />
       <p className="text-lg text-gray-500 dark:text-gray-400 w-full md:w-1/2 text-center break-words">
         {loadingMessages[Math.floor(Math.random() * loadingMessages.length)]}
       </p>

@@ -54,7 +54,7 @@ function Circle() {
 }
 
 export function Avatar({
-  name = "",
+  name = "U",
   size = "small",
 }: {
   name?: string;
@@ -72,7 +72,7 @@ export function Avatar({
             size == "small" ? "text-sm font-light " : "text-xl font-semibold"
           } text-gray-600 dark:text-gray-300`}
         >
-          {name[0]}
+          {name[0].toUpperCase()}
         </span>
       </div>
     </div>

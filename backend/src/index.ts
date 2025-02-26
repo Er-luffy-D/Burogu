@@ -81,7 +81,7 @@ app.get("/", (c) => {
             <p>/api/v1/user</p>
             <p>/api/v1/blog</p>
             <div class="emoji">🚀✨📚</div>
-            <a href="https://github.com" class="button">Visit our GitHub</a>
+            <a href="https://github.com/Er-luffy-d" class="button">Visit our GitHub</a>
         </div>
     </body>
     </html>

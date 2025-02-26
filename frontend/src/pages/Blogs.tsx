@@ -16,7 +16,8 @@ export interface blogsStructure {
 }
 
 export const Blogs = () => {
-  const { loading, blogs } = useBlogs();
+  const { loading, blogs, error } = useBlogs();
+  blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // Function to strip HTML tags from a string
   const stripHtmlTags = (html: string) => {
@@ -28,10 +29,35 @@ export const Blogs = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loading_Screen />;
+        <Loading_Screen />
       </div>
     );
   }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-black relative">
+        <div className="text-green-500 font-mono bg-black p-4 rounded-lg shadow-lg border border-green-500">
+          <p>ERROR: Failed to fetch blogs</p>
+          <p>Possible causes:</p>
+          <ul className="list-disc list-inside">
+            <li>Network issues</li>
+            <li>Server downtime</li>
+            <li>Invalid request</li>
+          </ul>
+          <p>Please try again later.</p>
+        </div>
+        <div className="absolute bottom-4 right-4">
+          <div className="retro-loader">
+            <p>Oops! Something went wrong.</p>
+            <p>We are unable to load the blogs at the moment.</p>
+            <p>Please check your connection or try again later.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Appbar />
@@ -50,6 +76,11 @@ export const Blogs = () => {
               />
             );
           })}
+          {blogs.length === 0 && (
+            <div className="flex justify-center items-center h-96">
+              <div className="text-2xl text-slate-700">No Blogs Yet</div>
+            </div>
+          )}
         </div>
       </div>
     </div>

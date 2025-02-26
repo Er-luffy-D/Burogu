@@ -2,7 +2,12 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { sign, verify } from "hono/jwt";
-import { signinInput, signupInput, updateInput } from "@piyush_007/medium_cl";
+import {
+  signinInput,
+  signupInput,
+  UpdateInput,
+  updateInput,
+} from "@piyush_007/medium_cl";
 
 const userRoutes = new Hono<{
   Bindings: {
@@ -105,7 +110,6 @@ userRoutes.post("/signin", async (c) => {
     );
   }
 });
-
 userRoutes.put(
   "/edit",
   async (c, next) => {
@@ -131,7 +135,7 @@ userRoutes.put(
     }
   },
   async (c) => {
-    const body = await c.req.json();
+    const body: UpdateInput = await c.req.json();
     const { success } = updateInput.safeParse(body);
     if (!success) {
       return c.json(
@@ -146,14 +150,17 @@ userRoutes.put(
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
+    const updateData: any = {};
+    if (body.name) updateData.name = body.name;
+    if (body.password) updateData.password = body.password;
+    if (body.funFact) updateData.fun_fact = body.funFact;
+
     try {
       const user = await prisma.user.update({
         where: {
           email: c.get("email"),
         },
-        data: {
-          name: body.name,
-        },
+        data: updateData,
       });
       return c.json(
         {

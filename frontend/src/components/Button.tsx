@@ -29,7 +29,7 @@ export const Button = ({
         ) : (
           <>
             <span className="relative z-10">{text}</span>
-            <span className="absolute inset-0 bg-green-400 transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0"></span>
+            <span className="absolute inset-0 bg-green-400 transform -translate-x-full transition-transform duration-500 ease-out group-hover:translate-x-0"></span>
           </>
         )}
       </button>

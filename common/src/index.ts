@@ -14,7 +14,9 @@ export const signinInput = z.object({
 });
 
 export const updateInput = z.object({
-  name: z.string(),
+  name: z.string().optional(),
+  funFact: z.string().optional(),
+  password: z.string().min(6).optional(),
 });
 
 export type SignupInput = z.infer<typeof signupInput>;

@@ -42,7 +42,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 
   return (
     <div className="h-screen flex justify-center items-center bg-gray-600 font-mono">
-      <div className="flex flex-col justify-center align-middle bg-gray-300 p-8 rounded-lg shadow-lg bg-opacity-90 border-2 border-gray-500">
+      <div className="flex flex-col justify-center align-middle bg-gray-300 p-8 rounded-lg shadow-lg bg-opacity-90 border-2 border-gray-500 w-full max-w-md">
         <div className="text-black text-xl sm:text-3xl font-bold mb-4">
           {type === "signup" ? "Create an Account" : "SignIn to Your Account"}
         </div>

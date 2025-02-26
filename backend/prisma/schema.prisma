@@ -17,6 +17,7 @@ model User {
   id       String  @id @default(uuid())
   email    String  @unique
   name     String?
+  fun_fact String? @default("Burogu is EXHILARATING!")
   password String
   posts    Post[]
 }

@@ -14,20 +14,20 @@ export const Blog = () => {
   );
 };
 
-const Blogpost = ({ id }: { id: string }) => {
+const Blogpost = ({ id }: { id: string | undefined }) => {
   const { loading, blog } = useFetchBlog(id);
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loading_Screen />;
+        <Loading_Screen />
       </div>
     );
   }
 
   return (
-    <div className="flex justify-center ">
-      <div className="grid grid-rows-7 grid-cols-1 md:grid-cols-12 max-w-screen-xl px-10  h-full md:grid-rows-1  pt-10">
-        <div className="row-span-5  md:col-span-8 md:row-start-1">
+    <div className="flex justify-center">
+      <div className="grid grid-rows-7 grid-cols-1 md:grid-cols-12 max-w-screen-xl px-4 md:px-10 h-full md:grid-rows-1 pt-10">
+        <div className="row-span-5 md:col-span-8 md:row-start-1">
           <div className="text-2xl sm:text-5xl font-extrabold">
             {/* title */}
             {blog.title}
@@ -41,7 +41,7 @@ const Blogpost = ({ id }: { id: string }) => {
             <ContentHtml text={blog.content} />
           </div>
         </div>
-        <div className="row-span-2 md:pl-8  md:col-span-4 md:row-start-1">
+        <div className="row-span-2 md:pl-8 md:col-span-4 md:row-start-1">
           <div className="text-gray-600 text-lg">Author</div>
           <div className="flex justify-center">
             <div className="flex flex-col justify-center">
@@ -53,7 +53,8 @@ const Blogpost = ({ id }: { id: string }) => {
                 {blog.author.name || "Author Name"}
               </div>
               <div className="text-slate-600">
-                random Catch phrase about author ,how he can do anything
+                {/* Bio */}
+                {blog.author.fun_fact || "No Fun Fact"}
               </div>
             </div>
           </div>

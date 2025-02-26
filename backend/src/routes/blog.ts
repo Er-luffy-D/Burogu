@@ -58,7 +58,8 @@ blogRoutes.post("/", async (c) => {
     });
     return c.json({ id: blog.id }, 200);
   } catch (e) {
-    return c.json({ message: "Something unexpected occurred" }, 500);
+    console.log(e);
+    return c.json({ message: e }, 500);
   }
 });
 
@@ -142,7 +143,9 @@ blogRoutes.get("/:id", async (c) => {
         date: true,
         edited: true,
         author: {
-          select: { name: true },
+          select: { name: true 
+            ,fun_fact: true
+          },
         },
       },
     });

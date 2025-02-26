@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from "./BlogCard";
 import { useRecoilValue } from "recoil";
 import { infoAtom } from "../store/atom/Information";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Appbar = () => {
   const user = useRecoilValue(infoAtom);
@@ -17,9 +17,23 @@ export const Appbar = () => {
     setMenuOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".menu-button") && !target.closest(".menu-content")) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="border-b flex justify-between px-2 md:px-10 py-4">
-      <div className=" flex flex-col justify-center font-extrabold text-lg md:text-xl">
+      <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl">
         <Link to={"/blogs"}>BUROGU</Link>
       </div>
       <div className="flex">
@@ -32,11 +46,11 @@ export const Appbar = () => {
           </button>
         </Link>
         <div className="relative">
-          <button title="User" onClick={toggleMenu}>
-            <Avatar size={"big"} name={user.email} />
+          <button title="User" onClick={toggleMenu} className="menu-button">
+            <Avatar size={"big"} name={user.name || user.email} />
           </button>
           {menuOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+            <div className="absolute right-0 mt-2 w-56 bg-white border rounded shadow-lg menu-content">
               <Link
                 to="/profile"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
