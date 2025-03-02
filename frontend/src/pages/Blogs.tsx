@@ -68,7 +68,7 @@ export const Blogs = () => {
               <BlogCard
                 id={c.id}
                 authorName={c.author.name || "Unknown"}
-                content={stripHtmlTags(c.content)}
+                content={stripHtmlTags(c.content) || "No Content"}
                 edited={c.edited}
                 publishedDate={c.date}
                 title={c.title}

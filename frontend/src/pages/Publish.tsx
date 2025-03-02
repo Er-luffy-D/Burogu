@@ -11,7 +11,14 @@ export const Publish = () => {
   return (
     <>
       <Appbar />
-      <Post />
+      <div className="flex justify-center w-full mt-10">
+        <div className="max-w-screen-lg w-full">
+          <div className="text-4xl font-bold text-center">Publish 📝</div>
+        </div>
+      </div>
+      <div className="p-4">
+        <Post />
+      </div>
     </>
   );
 };

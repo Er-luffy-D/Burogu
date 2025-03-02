@@ -19,6 +19,7 @@ model User {
   name     String?
   fun_fact String? @default("Burogu is EXHILARATING!")
   password String
+  verified Boolean @default(false)
   posts    Post[]
 }
 

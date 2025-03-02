@@ -3,6 +3,11 @@ import { Avatar } from "./BlogCard";
 import { useRecoilValue } from "recoil";
 import { infoAtom } from "../store/atom/Information";
 import { useState, useEffect } from "react";
+import add from "../assets/add.svg";
+import sunIcon from "../assets/light.svg";
+import sunIconHover from "../assets/light1.svg";
+import moonIcon from "../assets/dark.svg";
+import moonIconHover from "../assets/dark1.svg";
 
 export const Appbar = () => {
   const user = useRecoilValue(infoAtom);
@@ -37,15 +42,11 @@ export const Appbar = () => {
         <Link to={"/blogs"}>BUROGU</Link>
       </div>
       <div className="flex">
-        <Link to={"/publish"} className="flex flex-col justify-center">
-          <button
-            type="button"
-            className="mr-4 text-white bg-green-600 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-semibold rounded-full text-sm px-5 py-2.5 text-center "
-          >
-            New
-          </button>
+        <Darkmode />
+        <Link to={"/publish"} className="mx-2 flex flex-col justify-center">
+          <Addbutton />
         </Link>
-        <div className="relative">
+        <div className="relative ">
           <button title="User" onClick={toggleMenu} className="menu-button">
             <Avatar size={"big"} name={user.name || user.email} />
           </button>
@@ -80,6 +81,79 @@ export const Appbar = () => {
           )}
         </div>
       </div>
+    </div>
+  );
+};
+
+const Addbutton = () => {
+  return (
+    <button
+      className="group relative inline-flex h-10 w-10 items-center  justify-center overflow-hidden rounded-full bg-neutral-950 font-medium text-neutral-200 transition-all duration-300 sm:hover:w-24
+    hover:ring-offset-1 hover:ring-2 hover:ring-green-500  "
+    >
+      <div className="inline-flex whitespace-nowrap opacity-0 transition-all duration-200 sm:group-hover:-translate-x-3 sm:group-hover:opacity-100">
+        New
+      </div>
+      <div className="absolute right-3.5">
+        <img src={add} alt="add" className="h-7 relative left-1.5 " />
+      </div>
+    </button>
+  );
+};
+
+const Darkmode = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      setIsDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDarkMode(false);
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+    setIsDarkMode(!isDarkMode);
+  };
+
+  return (
+    <div
+      className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-black cursor-pointer border-2 border-gray-950"
+      onClick={toggleDarkMode}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        boxShadow: isHovered
+          ? isDarkMode
+            ? "0 0 10px 2px orange"
+            : "0 0 10px 2px blue"
+          : "none",
+      }}
+    >
+      <img
+        src={
+          isDarkMode
+            ? isHovered
+              ? sunIconHover
+              : sunIcon
+            : isHovered
+            ? moonIconHover
+            : moonIcon
+        }
+        alt="dark mode toggle"
+        className="h-5 w-5"
+      />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Bounce, toast, ToastContainer } from "react-toastify";
 import { DEV_BACKEND_URL } from "../config";
 import axios from "axios";
 import { UpdateInput } from "@piyush_007/medium_cl";
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
   return (
@@ -52,6 +53,9 @@ const request = async (data: UpdateInput) => {
       },
     }
   );
+  if (response.status == 200) {
+    localStorage.setItem("user_info", "");
+  }
   return response;
 };
 
@@ -63,7 +67,6 @@ const Change = ({
   fieldKey: string;
 }) => {
   const [data, setdata] = useState<Record<string, string>>({ [fieldKey]: "" });
-
   const notify = (str: string) =>
     toast.promise(
       request(data),

@@ -5,7 +5,7 @@
 .text-retro {
     font-family: 'Press Start 2P', cursive;
     color: black;
-    text-shadow: 2px 2px 1px lime ;
+    text-shadow: 2px 2px 1px rgb(255, 139, 255) ;
     font-size: 1.1rem;
     padding: 10px;
 }

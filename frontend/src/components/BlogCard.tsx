@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 interface BlogCardProps {
   id: string;
   authorName: string;
@@ -18,16 +17,23 @@ export const BlogCard = ({
 }: BlogCardProps) => {
   return (
     <Link to={`/blog/${id}`}>
-      <div className="border-b-2 border-slate-200 p-2 w-screen max-w-screen-md cursor-pointer">
-        <div className="flex align-middle ">
-          <Avatar name={authorName} />
-          <div className="font-normal pl-2">{authorName}</div>
-          <div className="flex items-center px-2">
-            <Circle />
+      <div className="border-b-2 border-slate-200 p-4 w-screen max-w-screen-md cursor-pointer">
+        <div className="flex align-middle justify-between ">
+          <div className="flex align-middle">
+            <Avatar name={authorName} />
+            <div className="font-normal pl-2">{authorName}</div>
+            <div className="flex items-center px-2">
+              <Circle />
+            </div>
+            <div className=" font-extralight text-slate-600">
+              {publishedDate.split("T")[0]}
+            </div>
           </div>
-          <div className=" font-extralight text-slate-600">
-            {publishedDate.split("T")[0]}
+          <div className="flex align-middle">
+            <a href="delete/">Delete</a>
+            <a href="edit/">Edit</a>
           </div>
+          
         </div>
         <div className="text-xl font-bold pt-2">{title}</div>
         <div className="text-base font-thin ">
