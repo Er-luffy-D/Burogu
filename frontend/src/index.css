@@ -71,21 +71,5 @@
 .dark .notebook-paper {
   background: linear-gradient(to bottom, #2d2d2d 30px, #1f1f1f 31px);
   border-left: 2px solid #ff6f61;
-  color: #e0e0e0;
 }
 
-.dark .bg-gray-100 {
-  background-color: #3d3d3d;
-}
-
-.dark .bg-gray-200 {
-  background-color: #4d4d4d;
-}
-
-.dark .text-gray-600 {
-  color: #a0a0a0;
-}
-
-.dark .text-gray-500 {
-  color: #b0b0b0;
-}
