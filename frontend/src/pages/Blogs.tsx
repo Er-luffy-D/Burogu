@@ -31,7 +31,7 @@ export const Blogs = () => {
     return (
       <div>
         <Appbar />
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center h-screen dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950">
           <Loading_Screen />
         </div>
       </div>
@@ -65,8 +65,8 @@ export const Blogs = () => {
   return (
     <div>
       <Appbar />
-      <div className="flex justify-center p-4">
-        <div>
+      <div className="flex justify-center py-0 px-4 dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950 min-h-screen">
+        <div className="min-h-screen dark:bg-neutral-900">
           {blogs.map((c: blogsStructure) => {
             return (
               <BlogCard

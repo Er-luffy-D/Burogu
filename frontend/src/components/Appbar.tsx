@@ -37,7 +37,7 @@ export const Appbar = () => {
   }, []);
 
   return (
-    <div className="border-b flex justify-between px-2 md:px-10 py-4 dark:bg-neutral-950">
+    <div className="border-b flex justify-between px-2 md:px-10 py-4 dark:bg-neutral-950 dark:border-gray-800">
       <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl dark:text-white">
         <Link to={"/blogs"}>BUROGU</Link>
       </div>
@@ -51,7 +51,7 @@ export const Appbar = () => {
             <Avatar size={"big"} name={user.name || user.email} />
           </button>
           {menuOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-white border rounded shadow-lg menu-content">
+            <div className="absolute right-0 mt-2 w-56 bg-white border rounded shadow-lg menu-content z-50">
               <Link
                 to="/profile"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-200"

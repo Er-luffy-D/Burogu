@@ -15,6 +15,14 @@
   padding: 10px;
 }
 
+.dark .text-retro {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  text-shadow: 1px 1px 1px rgb(255, 139, 255);
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
 .retro-loader {
   font-family: 'Courier New', Courier, monospace;
   color: green;
@@ -44,7 +52,7 @@
 }
 
 .notebook-paper {
-  background: linear-gradient(to bottom, #fff 30px, #f0f0f0 31px);
+  background: linear-gradient(to bottom, #fffef2 30px, #000000 31px);
   background-size: 100% 31px;
   border-left: 2px solid #ff6f61;
   padding-left: 20px;
