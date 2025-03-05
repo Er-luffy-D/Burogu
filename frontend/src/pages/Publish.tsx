@@ -4,8 +4,9 @@ import "react-quill/dist/quill.snow.css";
 import { Button } from "../components/Button";
 import { Appbar } from "../components/Appbar";
 import { usePostBlog } from "../hooks";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Toasts } from "../components/Toasts";
 
 export const Publish = () => {
   return (
@@ -19,6 +20,7 @@ export const Publish = () => {
       <div className="p-4">
         <Post />
       </div>
+      <Toasts />
     </>
   );
 };
@@ -104,19 +106,6 @@ export const Post = () => {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
     </div>
   );
 };

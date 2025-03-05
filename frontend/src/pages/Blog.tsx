@@ -19,7 +19,7 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loading_Screen />;
+        <Loading_Screen />
       </div>
     );
   }

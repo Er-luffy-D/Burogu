@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Appbar } from "../components/Appbar";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import { DEV_BACKEND_URL } from "../config";
 import axios from "axios";
 import { UpdateInput } from "@piyush_007/medium_cl";
-import { useNavigate } from "react-router-dom";
+import { Toasts } from "../components/Toasts";
 
 export const Profile = () => {
   return (
     <div>
       <Appbar />
-      <div className="mt-2 h-screen bg-gradient-to-b from-white   to-purple-300">
+      <div className="mt-2 h-screen bg-gradient-to-b from-white via-fuchsia-200  to-violet-400">
         <div className="flex justify-center align-middle mt-4 text-3xl font-mono  font-bold text-slate-700">
           Edit Profile
         </div>
@@ -25,19 +25,7 @@ export const Profile = () => {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
+      <Toasts />
     </div>
   );
 };

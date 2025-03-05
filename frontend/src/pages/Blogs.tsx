@@ -2,6 +2,7 @@ import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
 import { Loading_Screen } from "../components/loader";
 import { useBlogs } from "../hooks";
+import { Toasts } from "../components/Toasts";
 
 export interface blogsStructure {
   title: string;
@@ -28,8 +29,11 @@ export const Blogs = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loading_Screen />
+      <div>
+        <Appbar />
+        <div className="flex justify-center items-center h-screen">
+          <Loading_Screen />
+        </div>
       </div>
     );
   }
@@ -82,6 +86,7 @@ export const Blogs = () => {
             </div>
           )}
         </div>
+        <Toasts />
       </div>
     </div>
   );

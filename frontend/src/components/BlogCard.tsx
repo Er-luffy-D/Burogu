@@ -1,4 +1,7 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
+import { DEV_BACKEND_URL } from "../config";
 interface BlogCardProps {
   id: string;
   authorName: string;
@@ -7,6 +10,7 @@ interface BlogCardProps {
   publishedDate: string;
   edited: boolean;
 }
+
 export const BlogCard = ({
   id,
   authorName,
@@ -15,6 +19,51 @@ export const BlogCard = ({
   publishedDate,
   edited,
 }: BlogCardProps) => {
+  const requestDelete = async () => {
+    try {
+      const response = await axios.post(
+        `${DEV_BACKEND_URL}/api/v1/blog/delete`,
+        { id: id },
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+
+  const handleDeleteClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    toast.promise(
+      requestDelete().then(() => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }),
+      {
+        pending: "Deleting...",
+        success: "Deleted",
+        error: "Error",
+      },
+      {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      }
+    );
+  };
+
   return (
     <Link to={`/blog/${id}`}>
       <div className="border-b-2 border-slate-200 p-4 w-screen max-w-screen-md cursor-pointer">
@@ -30,10 +79,13 @@ export const BlogCard = ({
             </div>
           </div>
           <div className="flex align-middle">
-            <a href="delete/">Delete</a>
-            <a href="edit/">Edit</a>
+            <button
+              className="relative overflow-hidden rounded-md text-xs bg-neutral-950 px-4 py-1.5 text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
+              onClick={handleDeleteClick}
+            >
+              Delete
+            </button>
           </div>
-          
         </div>
         <div className="text-xl font-bold pt-2">{title}</div>
         <div className="text-base font-thin ">

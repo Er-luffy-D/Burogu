@@ -126,6 +126,22 @@ blogRoutes.get("/total", async (c) => {
   }
 });
 
+blogRoutes.post("/delete", async (c) => {
+  try {
+    const body = await c.req.json();
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    const blog = await prisma.post.delete({
+      where: { id: body.id },
+    });
+    return c.json({ id: blog.id, message: "Blog deleted successfully" }, 200);
+  } catch (e) {
+    return c.json({ message: "Something unexpected occurred" }, 500);
+  }
+});
+
 blogRoutes.get("/:id", async (c) => {
   try {
     const id = c.req.param("id");
@@ -143,9 +159,7 @@ blogRoutes.get("/:id", async (c) => {
         date: true,
         edited: true,
         author: {
-          select: { name: true 
-            ,fun_fact: true
-          },
+          select: { name: true, fun_fact: true },
         },
       },
     });
