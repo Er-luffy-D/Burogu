@@ -37,8 +37,8 @@ export const Appbar = () => {
   }, []);
 
   return (
-    <div className="border-b flex justify-between px-2 md:px-10 py-4">
-      <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl">
+    <div className="border-b flex justify-between px-2 md:px-10 py-4 dark:bg-neutral-950">
+      <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl dark:text-white">
         <Link to={"/blogs"}>BUROGU</Link>
       </div>
       <div className="flex">
@@ -88,14 +88,19 @@ export const Appbar = () => {
 const Addbutton = () => {
   return (
     <button
-      className="group relative inline-flex h-10 w-10 items-center  justify-center overflow-hidden rounded-full bg-neutral-950 font-medium text-neutral-200 transition-all duration-300 sm:hover:w-24
+      className="group relative inline-flex h-10 w-10 items-center  justify-center overflow-hidden rounded-full bg-neutral-950 
+      dark:bg-gray-200 font-medium text-neutral-200 dark:text-black transition-all duration-300 sm:hover:w-24
     hover:ring-offset-1 hover:ring-2 hover:ring-green-500  "
     >
       <div className="inline-flex whitespace-nowrap opacity-0 transition-all duration-200 sm:group-hover:-translate-x-3 sm:group-hover:opacity-100">
         New
       </div>
       <div className="absolute right-3.5">
-        <img src={add} alt="add" className="h-7 relative left-1.5 " />
+        <img
+          src={add}
+          alt="add"
+          className="h-7 relative left-1.5 filter dark:invert"
+        />
       </div>
     </button>
   );
@@ -129,7 +134,7 @@ const Darkmode = () => {
 
   return (
     <div
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-black cursor-pointer border-2 border-gray-950"
+      className="flex items-center justify-center w-10 h-10 rounded-full bg-black dark:bg-white cursor-pointer border-2 border-gray-950"
       onClick={toggleDarkMode}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -152,7 +157,7 @@ const Darkmode = () => {
             : moonIcon
         }
         alt="dark mode toggle"
-        className="h-5 w-5"
+        className="h-5 w-5 filter invert dark:invert-0"
       />
     </div>
   );

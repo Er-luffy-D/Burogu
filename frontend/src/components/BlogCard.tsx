@@ -123,12 +123,12 @@ export function Avatar({
       <div
         className={`relative inline-flex items-center justify-center ${
           size === "small" ? "w-5 h-5 " : "w-10 h-10"
-        } overflow-hidden bg-gray-100 rounded-full dark:bg-blue-950 `}
+        } overflow-hidden bg-cyan-500 rounded-full  `}
       >
         <span
           className={`${
             size == "small" ? "text-sm font-light " : "text-xl font-semibold"
-          } text-gray-600 dark:text-gray-300`}
+          }  text-slate-950`}
         >
           {name[0].toUpperCase()}
         </span>
