@@ -4,20 +4,26 @@ import "react-quill/dist/quill.snow.css";
 import { Button } from "../components/Button";
 import { Appbar } from "../components/Appbar";
 import { usePostBlog } from "../hooks";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Toasts } from "../components/Toasts";
 
 export const Publish = () => {
   return (
     <>
       <Appbar />
-      <div className="flex justify-center w-full mt-10">
-        <div className="max-w-screen-lg w-full">
-          <div className="text-4xl font-bold text-center">Publish 📝</div>
+      <div className="min-h-screen dark:bg-gray-800">
+        <div className="flex justify-center w-full pt-10 ">
+          <div className="max-w-screen-lg w-full">
+            <div className="text-4xl font-bold text-center dark:text-neutral-300">
+              Publish 📝
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="p-4">
-        <Post />
+        <div className="p-4">
+          <Post />
+        </div>
+        <Toasts />
       </div>
     </>
   );
@@ -76,13 +82,13 @@ export const Post = () => {
 
   return (
     <div>
-      <div className="flex justify-center w-full my-6">
+      <div className="flex justify-center w-full my-6 ">
         <div className="max-w-screen-lg w-full ">
           <div className="flex flex-col">
             <input
               type="text"
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4 dark:bg-zinc-900 dark:border-neutral-700 dark:text-white"
               placeholder="Title"
               required
             />
@@ -91,6 +97,7 @@ export const Post = () => {
               value={content}
               onChange={handleEditorChange}
               placeholder="I'm Feeling Lucky"
+              className=" text-gray-900 text-sm rounded-lg  block w-full  mb-4 dark:bg-zinc-900  dark:text-white"
             />
             <div className="flex justify-center mt-2">
               <Button
@@ -100,23 +107,12 @@ export const Post = () => {
                 loading={loading}
               ></Button>
             </div>
-            {message && <div className="mt-2 text-center">{message}</div>}
+            {message && (
+              <div className="mt-2 text-center dark:text-white">{message}</div>
+            )}
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
     </div>
   );
 };

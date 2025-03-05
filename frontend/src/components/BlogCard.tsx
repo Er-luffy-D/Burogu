@@ -1,4 +1,7 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { Bounce, toast } from "react-toastify";
+import { DEV_BACKEND_URL } from "../config";
 interface BlogCardProps {
   id: string;
   authorName: string;
@@ -7,6 +10,7 @@ interface BlogCardProps {
   publishedDate: string;
   edited: boolean;
 }
+
 export const BlogCard = ({
   id,
   authorName,
@@ -15,13 +19,58 @@ export const BlogCard = ({
   publishedDate,
   edited,
 }: BlogCardProps) => {
+  const requestDelete = async () => {
+    try {
+      const response = await axios.post(
+        `${DEV_BACKEND_URL}/api/v1/blog/delete`,
+        { id: id },
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+
+  const handleDeleteClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    toast.promise(
+      requestDelete().then(() => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }),
+      {
+        pending: "Deleting...",
+        success: "Deleted",
+        error: "Error",
+      },
+      {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      }
+    );
+  };
+
   return (
     <Link to={`/blog/${id}`}>
-      <div className="border-b-2 border-slate-200 p-4 w-screen max-w-screen-md cursor-pointer">
+      <div className="border-b-2 border-slate-200 p-4 w-screen max-w-screen-md cursor-pointer dark:border-gray-700 dark:bg-neutral-900 dark:hover:brightness-150 hover:backdrop-brightness-90">
         <div className="flex align-middle justify-between ">
           <div className="flex align-middle">
             <Avatar name={authorName} />
-            <div className="font-normal pl-2">{authorName}</div>
+            <div className="font-normal pl-2 dark:text-white">{authorName}</div>
             <div className="flex items-center px-2">
               <Circle />
             </div>
@@ -30,13 +79,16 @@ export const BlogCard = ({
             </div>
           </div>
           <div className="flex align-middle">
-            <a href="delete/">Delete</a>
-            <a href="edit/">Edit</a>
+            <button
+              className="relative overflow-hidden rounded-md text-xs bg-neutral-950 dark:bg-stone-700 px-4 py-1.5 text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
+              onClick={handleDeleteClick}
+            >
+              Delete
+            </button>
           </div>
-          
         </div>
-        <div className="text-xl font-bold pt-2">{title}</div>
-        <div className="text-base font-thin ">
+        <div className="text-xl font-bold pt-2 dark:text-gray-400">{title}</div>
+        <div className="text-base font-thin my-2 dark:text-slate-400">
           {content.slice(0, 100) + "..."}
         </div>
         <div className="flex justify-between pt-4">
@@ -56,7 +108,7 @@ export const BlogCard = ({
 };
 
 function Circle() {
-  return <div className="h-1 w-1 bg-slate-400 rounded-full"></div>;
+  return <div className="h-1 w-1 bg-slate-500 rounded-full"></div>;
 }
 
 export function Avatar({
@@ -71,12 +123,12 @@ export function Avatar({
       <div
         className={`relative inline-flex items-center justify-center ${
           size === "small" ? "w-5 h-5 " : "w-10 h-10"
-        } overflow-hidden bg-gray-100 rounded-full dark:bg-blue-950 `}
+        } overflow-hidden bg-cyan-500 dark:bg-green-900 rounded-full  `}
       >
         <span
           className={`${
             size == "small" ? "text-sm font-light " : "text-xl font-semibold"
-          } text-gray-600 dark:text-gray-300`}
+          }  text-slate-950 dark:text-white`}
         >
           {name[0].toUpperCase()}
         </span>

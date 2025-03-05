@@ -1,43 +1,31 @@
 import { useState } from "react";
 import { Appbar } from "../components/Appbar";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import { DEV_BACKEND_URL } from "../config";
 import axios from "axios";
 import { UpdateInput } from "@piyush_007/medium_cl";
-import { useNavigate } from "react-router-dom";
+import { Toasts } from "../components/Toasts";
 
 export const Profile = () => {
   return (
     <div>
       <Appbar />
-      <div className="mt-2 h-screen bg-gradient-to-b from-white   to-purple-300">
-        <div className="flex justify-center align-middle mt-4 text-3xl font-mono  font-bold text-slate-700">
+      <div className="pt-2 h-screen bg-gradient-to-b from-white via-fuchsia-200  to-violet-400 dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950">
+        <div className="flex justify-center align-middle mt-4 text-3xl font-mono  font-bold text-slate-700 dark:text-slate-200">
           Edit Profile
         </div>
         <div className="flex justify-center align-middle mt-4 p-4">
-          <div className="flex flex-col justify-center align-middle border-b-slate-500 border-slate-800 border-dashed border-4 rounded-lg  mt-4 w-full max-w-screen-md p-10">
-            <p className="m-2 text-retro">Change Username:</p>
+          <div className="flex flex-col justify-center align-middle border-b-slate-500 border-slate-800 border-dashed border-4 rounded-lg  mt-4 w-full max-w-screen-md p-10 dark:border-gray-700 dark:bg-gray-800 dark:border-b-gray-500">
+            <p className="m-2 text-retro ">Change Username:</p>
             <Change placeholder="Username" fieldKey="name" />
-            <p className="m-2 text-retro">Change Bio:</p>
+            <p className="m-2 text-retro ">Change Bio:</p>
             <Change placeholder="Bio" fieldKey="funFact" />
-            <p className="m-2 text-retro">Change Password🔑:</p>
+            <p className="m-2 text-retro ">Change Password🔑:</p>
             <Change placeholder="Password" fieldKey="password" />
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
+      <Toasts />
     </div>
   );
 };

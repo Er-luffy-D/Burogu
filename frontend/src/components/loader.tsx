@@ -24,12 +24,8 @@ export const Loader_Button = () => {
 
 export const Loading_Screen = () => {
   return (
-    <div className="flex flex-col items-center">
-      <img
-        src={car}
-        alt="Loading"
-        className="h-[100%] md:h-[40%] w-full md:w-1/2"
-      />
+    <div className="flex flex-col items-center h-screen justify-center">
+      <img src={car} alt="Loading" className="h-40 w-40 md:h-60 md:w-60" />
       <p className="text-lg text-gray-500 dark:text-gray-400 w-full md:w-1/2 text-center break-words">
         {loadingMessages[Math.floor(Math.random() * loadingMessages.length)]}
       </p>

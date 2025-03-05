@@ -2,6 +2,7 @@ import { Appbar } from "../components/Appbar";
 import { BlogCard } from "../components/BlogCard";
 import { Loading_Screen } from "../components/loader";
 import { useBlogs } from "../hooks";
+import { Toasts } from "../components/Toasts";
 
 export interface blogsStructure {
   title: string;
@@ -28,8 +29,11 @@ export const Blogs = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loading_Screen />
+      <div>
+        <Appbar />
+        <div className="flex justify-center items-center h-screen dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950">
+          <Loading_Screen />
+        </div>
       </div>
     );
   }
@@ -61,8 +65,8 @@ export const Blogs = () => {
   return (
     <div>
       <Appbar />
-      <div className="flex justify-center p-4">
-        <div>
+      <div className="flex justify-center py-0 px-4 dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950 min-h-screen">
+        <div className="min-h-screen dark:bg-neutral-900">
           {blogs.map((c: blogsStructure) => {
             return (
               <BlogCard
@@ -82,6 +86,7 @@ export const Blogs = () => {
             </div>
           )}
         </div>
+        <Toasts />
       </div>
     </div>
   );
