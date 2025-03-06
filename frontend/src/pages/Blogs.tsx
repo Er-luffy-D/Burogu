@@ -81,8 +81,10 @@ export const Blogs = () => {
             );
           })}
           {blogs.length === 0 && (
-            <div className="flex justify-center items-center h-96">
-              <div className="text-2xl text-slate-700">No Blogs Yet</div>
+            <div className="flex justify-center items-center h-96 ">
+              <div className="text-2xl text-slate-700 max-w-screen-md text-center w-screen dark:text-white">
+                No Blogs Yet
+              </div>
             </div>
           )}
         </div>

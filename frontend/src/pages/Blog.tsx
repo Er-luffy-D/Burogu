@@ -26,8 +26,8 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
 
   return (
     <div className="flex justify-center w-full dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950 min-h-screen ">
-      <div className="grid grid-rows-7 grid-cols-1 md:grid-cols-12 max-w-screen-xl px-10 w-full h-full md:grid-rows-1 pt-10 dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950 min-h-screen">
-        <div className="row-span-5 md:col-span-8 md:row-start-1 border-r-2 border-slate-300 dark:border-slate-700 pr-8">
+      <div className="grid grid-rows-7 grid-cols-1 md:grid-cols-12 max-w-screen-xl px-10 w-full h-full md:grid-rows-1 pt-10 min-h-screen dark:bg-black/25  ">
+        <div className="row-span-5 md:col-span-8 md:row-start-1 md:border-r-2 md:border-b-0 border-b-2  border-slate-300 dark:border-slate-700 md:pr-8 pr-0">
           <div className="text-3xl sm:text-5xl font-extrabold dark:text-slate-100">
             {/* title */}
             {blog.title || "Title 404 Not Found"}
@@ -41,7 +41,7 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
             <ContentHtml text={blog.content} />
           </div>
         </div>
-        <div className="row-span-2 md:pl-8 md:col-span-4 md:row-start-1">
+        <div className="row-span-2 pl-0 md:pl-8 md:col-span-4 md:row-start-1 pt-8 md:pt-0">
           <div className="text-gray-600 text-lg dark:text-slate-300">
             Author
           </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Appbar } from "../components/Appbar";
 import { Bounce, toast } from "react-toastify";
-import { DEV_BACKEND_URL } from "../config";
+import { PROD_BACKEND_URL } from "../config";
 import axios from "axios";
 import { UpdateInput } from "@piyush_007/medium_cl";
 import { Toasts } from "../components/Toasts";
@@ -32,7 +32,7 @@ export const Profile = () => {
 
 const request = async (data: UpdateInput) => {
   const response = await axios.put(
-    `${DEV_BACKEND_URL}/api/v1/user/edit`,
+    `${PROD_BACKEND_URL}/api/v1/user/edit`,
     data,
     {
       headers: {
@@ -43,6 +43,9 @@ const request = async (data: UpdateInput) => {
   );
   if (response.status == 200) {
     localStorage.setItem("user_info", "");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   }
   return response;
 };

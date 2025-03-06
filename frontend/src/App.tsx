@@ -10,8 +10,6 @@ import { Publish } from "./pages/Publish";
 import { Profile } from "./pages/Profile";
 import RequireAuth from "./components/RequireAuth";
 import { MyBlogs } from "./pages/MyBlogs";
-import { Toasts } from "./components/Toasts";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -73,8 +71,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      <Toasts />
-      <ToastContainer />
+      
     </>
   );
 }

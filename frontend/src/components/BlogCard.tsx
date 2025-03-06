@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
-import { DEV_BACKEND_URL } from "../config";
+import { PROD_BACKEND_URL } from "../config";
 interface BlogCardProps {
   id: string;
   authorName: string;
@@ -22,7 +22,7 @@ export const BlogCard = ({
   const requestDelete = async () => {
     try {
       const response = await axios.post(
-        `${DEV_BACKEND_URL}/api/v1/blog/delete`,
+        `${PROD_BACKEND_URL}/api/v1/blog/delete`,
         { id: id },
         {
           headers: {

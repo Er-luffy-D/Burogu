@@ -83,7 +83,7 @@ export const Post = () => {
   return (
     <div>
       <div className="flex justify-center w-full my-6 ">
-        <div className="max-w-screen-lg w-full ">
+        <div className="max-w-screen-lg w-full  ">
           <div className="flex flex-col">
             <input
               type="text"

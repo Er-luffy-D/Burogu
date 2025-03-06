@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { DEV_BACKEND_URL } from "../config";
+import { PROD_BACKEND_URL } from "../config";
 import { useSetRecoilState } from "recoil";
 import { infoAtom } from "../store/atom/Information";
 import CryptoJS from "crypto-js";
@@ -13,7 +13,7 @@ export const useBlogs = () => {
 
   useEffect(() => {
     axios
-      .get(`${DEV_BACKEND_URL}/api/v1/blog/bulk`, {
+      .get(`${PROD_BACKEND_URL}/api/v1/blog/bulk`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -52,7 +52,7 @@ export const usePostBlog = (title: string, content: string) => {
     setStatus("0");
     setMessage("");
     axios
-      .post(`${DEV_BACKEND_URL}/api/v1/blog`, input, {
+      .post(`${PROD_BACKEND_URL}/api/v1/blog`, input, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
@@ -98,7 +98,7 @@ export const usePutBlog = (title: string, content: string, id: string) => {
     setStatus("0");
     setMessage("");
     axios
-      .put(`${DEV_BACKEND_URL}/api/v1/blog`, input, {
+      .put(`${PROD_BACKEND_URL}/api/v1/blog`, input, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
@@ -151,7 +151,7 @@ export const useFetchBlog = (id: string | undefined) => {
 
   useEffect(() => {
     axios
-      .get(`${DEV_BACKEND_URL}/api/v1/blog/${id}`, {
+      .get(`${PROD_BACKEND_URL}/api/v1/blog/${id}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -187,7 +187,7 @@ export const useFetchUserInfo = () => {
           setInfo(decryptedData);
         } else {
           const response = await axios.get(
-            `${DEV_BACKEND_URL}/api/v1/user/me`,
+            `${PROD_BACKEND_URL}/api/v1/user/me`,
             {
               headers: {
                 Authorization: token,

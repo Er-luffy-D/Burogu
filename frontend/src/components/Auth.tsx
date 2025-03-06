@@ -4,7 +4,7 @@ import { Button } from "./Button";
 import { SignupInput } from "@piyush_007/medium_cl";
 import { useState } from "react";
 import axios from "axios";
-import { DEV_BACKEND_URL } from "../config";
+import {PROD_BACKEND_URL  } from "../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     }
     try {
       const response = await axios.post(
-        `${DEV_BACKEND_URL}/api/v1/user/${type}`,
+        `${PROD_BACKEND_URL}/api/v1/user/${type}`,
         postData
       );
       const jwt = response.data.jwt;
