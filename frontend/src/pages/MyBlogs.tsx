@@ -1,6 +1,30 @@
+import { useRecoilValue } from "recoil";
 import { Appbar } from "../components/Appbar";
+import { useMyBlogs } from "../hooks";
+import { infoAtom } from "../store/atom/Information";
+import { Loading_Screen } from "../components/loader";
+import { Link } from "react-router-dom";
 
 export const MyBlogs = () => {
+  const user = useRecoilValue(infoAtom);
+  const { blogs, loading } = useMyBlogs(user.id);
+
+  const stripHtmlTags = (html: string) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "No Content";
+  };
+
+  if (loading) {
+    return (
+      <div>
+        <Appbar />
+        <div className="flex justify-center items-center h-screen dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950">
+          <Loading_Screen />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen  ">
       <Appbar />
@@ -19,26 +43,17 @@ export const MyBlogs = () => {
           </p>
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {/* Blog post cards will go here */}
-            <CardContent
-              title="Blog Post Title"
-              description="A brief description of the blog post."
-              date="2023-10-15"
-            />
-            <CardContent
-              title="Blog Post Title"
-              description="A brief description of the blog post."
-              date="2023-10-15"
-            />
-            <CardContent
-              title="Blog Post Title"
-              description="A brief description of the blog post."
-              date="2023-10-15"
-            />
-            <CardContent
-              title="Blog Post Title"
-              description="A brief description of the blog post."
-              date="2023-10-15"
-            />
+
+            {blogs.map((c) => {
+              return (
+                <CardContent
+                  id={c.id}
+                  title={c.title || "No Title"}
+                  description={stripHtmlTags(c.content).slice(0, 20) + ".."}
+                  date={c.date.split("T")[0]}
+                />
+              );
+            })}
           </div>
           <div className="flex justify-between  absolute bottom-10 right-1 w-full px-6 dark:bottom-4">
             <button className="bg-[#F98866] text-white px-4 py-2 rounded hover:bg-[#e07b5e] transition-colors duration-300">
@@ -58,20 +73,24 @@ const CardContent = ({
   title,
   description,
   date,
+  id,
 }: {
   title: string;
   description: string;
   date: string;
+  id: string;
 }) => {
   return (
-    <div className="bg-gray-200 dark:bg-gray-700 p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-105 ">
-      <h3 className="text-xl font-semibold mb-2 text-[#F98866] dark:text-[#F98866]">
-        {title}
-      </h3>
-      <p className="text-gray-600 dark:text-gray-300 mb-2">{description}</p>
-      <p className="text-gray-500 dark:text-gray-400 text-sm">
-        Published on: {date}
-      </p>
-    </div>
+    <Link to={`/blog/${id}`}>
+      <div className="bg-gray-200 dark:bg-gray-700 p-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-105 ">
+        <h3 className="text-xl font-semibold mb-2 text-[#F98866] dark:text-[#F98866]">
+          {title}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-300 mb-2">{description}</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">
+          Published on: {date}
+        </p>
+      </div>
+    </Link>
   );
 };

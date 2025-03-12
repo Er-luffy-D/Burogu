@@ -167,6 +167,40 @@ export const useFetchBlog = (id: string | undefined) => {
   };
 };
 
+export const useMyBlogs = (id: string | undefined) => {
+  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState<
+    {
+      title: string;
+      id: string;
+      published: boolean;
+      content: string;
+      date: string;
+      edited: boolean;
+      author: {
+        name: string;
+        fun_fact: string;
+      };
+    }[]
+  >([]);
+  useEffect(() => {
+    axios
+      .get(`${PROD_BACKEND_URL}/api/v1/blog/user/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setBlogs(res.data.totalPosts);
+        setLoading(false);
+      });
+  }, [id]);
+  return {
+    blogs,
+    loading,
+  };
+};
+
 export const useFetchUserInfo = () => {
   const setInfo = useSetRecoilState(infoAtom);
 

@@ -3,6 +3,8 @@ import { BlogCard } from "../components/BlogCard";
 import { Loading_Screen } from "../components/loader";
 import { useBlogs } from "../hooks";
 import { Toasts } from "../components/Toasts";
+import { useRecoilValue } from "recoil";
+import { infoAtom } from "../store/atom/Information";
 
 export interface blogsStructure {
   title: string;
@@ -13,6 +15,7 @@ export interface blogsStructure {
   edited: boolean;
   author: {
     name: string;
+    id: string;
   };
 }
 
@@ -20,6 +23,7 @@ export const Blogs = () => {
   const { loading, blogs, error } = useBlogs();
   blogs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  const user = useRecoilValue(infoAtom);
   // Function to strip HTML tags from a string
   const stripHtmlTags = (html: string) => {
     const div = document.createElement("div");
@@ -74,6 +78,7 @@ export const Blogs = () => {
                 authorName={c.author.name || "Unknown"}
                 content={stripHtmlTags(c.content) || "No Content"}
                 edited={c.edited}
+                deletebutton={c.author.id === user.id}
                 publishedDate={c.date}
                 title={c.title}
                 key={c.id}

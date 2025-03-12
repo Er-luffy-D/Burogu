@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Bounce, toast } from "react-toastify";
 import { PROD_BACKEND_URL } from "../config";
 interface BlogCardProps {
@@ -9,6 +10,7 @@ interface BlogCardProps {
   content: string;
   publishedDate: string;
   edited: boolean;
+  deletebutton: boolean;
 }
 
 export const BlogCard = ({
@@ -18,6 +20,7 @@ export const BlogCard = ({
   content,
   publishedDate,
   edited,
+  deletebutton,
 }: BlogCardProps) => {
   const requestDelete = async () => {
     try {
@@ -66,43 +69,55 @@ export const BlogCard = ({
 
   return (
     <Link to={`/blog/${id}`}>
-      <div className="border-b-2 border-slate-200 p-4 w-screen max-w-screen-md cursor-pointer dark:border-gray-700 dark:bg-neutral-900 dark:hover:brightness-150 hover:backdrop-brightness-90">
-        <div className="flex align-middle justify-between ">
-          <div className="flex align-middle">
-            <Avatar name={authorName} />
-            <div className="font-normal pl-2 dark:text-white">{authorName}</div>
-            <div className="flex items-center px-2">
-              <Circle />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.7 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.15, duration: 0.4 }}
+      >
+        <div className="border-b-2 border-slate-200 p-4 w-screen max-w-screen-md cursor-pointer dark:border-gray-700 dark:bg-neutral-900 dark:hover:brightness-150 hover:backdrop-brightness-90">
+          <div className="flex align-middle justify-between ">
+            <div className="flex align-middle">
+              <Avatar name={authorName} />
+              <div className="font-normal pl-2 dark:text-white">
+                {authorName}
+              </div>
+              <div className="flex items-center px-2">
+                <Circle />
+              </div>
+              <div className=" font-extralight text-slate-600">
+                {publishedDate.split("T")[0]}
+              </div>
             </div>
-            <div className=" font-extralight text-slate-600">
-              {publishedDate.split("T")[0]}
+            <div className="flex align-middle">
+              {deletebutton && (
+                <button
+                  className="relative overflow-hidden rounded-md text-xs bg-neutral-950 dark:bg-stone-700 px-4 py-1.5 text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
+                  onClick={handleDeleteClick}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </div>
-          <div className="flex align-middle">
-            <button
-              className="relative overflow-hidden rounded-md text-xs bg-neutral-950 dark:bg-stone-700 px-4 py-1.5 text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
-              onClick={handleDeleteClick}
-            >
-              Delete
-            </button>
+          <div className="text-xl font-bold pt-2 dark:text-gray-400">
+            {title}
           </div>
-        </div>
-        <div className="text-xl font-bold pt-2 dark:text-gray-400">{title}</div>
-        <div className="text-base font-thin my-2 dark:text-slate-400">
-          {content.slice(0, 100) + "..."}
-        </div>
-        <div className="flex justify-between pt-4">
-          <div className="text-slate-400 text-sm">{`${Math.ceil(
-            content.length / 300
-          )} min(s) read`}</div>
+          <div className="text-base font-thin my-2 dark:text-slate-400">
+            {content.slice(0, 100) + "..."}
+          </div>
+          <div className="flex justify-between pt-4">
+            <div className="text-slate-400 text-sm">{`${Math.ceil(
+              content.length / 300
+            )} min(s) read`}</div>
 
-          {edited ? (
-            <div className="text-sm text-slate-600 px-3 border-2 rounded-full bg-zinc-200 ">
-              Edited
-            </div>
-          ) : undefined}
+            {edited ? (
+              <div className="text-sm text-slate-600 px-3 border-2 rounded-full bg-zinc-200 ">
+                Edited
+              </div>
+            ) : undefined}
+          </div>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 };

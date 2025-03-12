@@ -3,6 +3,7 @@ import { Appbar } from "../components/Appbar";
 import { Avatar } from "../components/BlogCard";
 import { useFetchBlog } from "../hooks";
 import { Loading_Screen } from "../components/loader";
+import { Reveal } from "../components/Animation";
 
 export const Blog = () => {
   const { id } = useParams();
@@ -30,33 +31,37 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
         <div className="row-span-5 md:col-span-8 md:row-start-1 md:border-r-2 md:border-b-0 border-b-2  border-slate-300 dark:border-slate-700 md:pr-8 pr-0">
           <div className="text-3xl sm:text-5xl font-extrabold dark:text-slate-100">
             {/* title */}
-            {blog.title || "Title 404 Not Found"}
+            <Reveal>{blog.title || "Title 404 Not Found"}</Reveal>
           </div>
           <div className="text-slate-500 dark:text-slate-400 pt-4">
             {/* date */}
-            Post on {blog.date}
+            <Reveal>Post on {blog.date}</Reveal>
           </div>
           <div className="pt-4 text-lg text-slate-700 dark:text-slate-200">
             {/* content */}
-            <ContentHtml text={blog.content} />
+            <Reveal>
+              <ContentHtml text={blog.content} />
+            </Reveal>
           </div>
         </div>
         <div className="row-span-2 pl-0 md:pl-8 md:col-span-4 md:row-start-1 pt-8 md:pt-0">
           <div className="text-gray-600 text-lg dark:text-slate-300">
-            Author
+            <Reveal>Author</Reveal>
           </div>
           <div className="flex justify-items-start pl-4 pt-4">
             <div className="flex flex-col justify-center ">
-              <Avatar name={blog.author.name || "Unknown"} size="big" />
+              <Reveal>
+                <Avatar name={blog.author.name || "Unknown"} size="big" />
+              </Reveal>
             </div>
             <div className="flex flex-col justify-center pl-4">
               <div className="text-xl font-bold dark:text-slate-100">
                 {/* Name */}
-                {blog.author.name || "Author Name"}
+                <Reveal>{blog.author.name || "Author Name"}</Reveal>
               </div>
               <div className="text-slate-600 dark:text-slate-500">
                 {/* Bio */}
-                {blog.author.fun_fact || "No Fun Fact"}
+                <Reveal>{blog.author.fun_fact || "No Fun Fact"}</Reveal>
               </div>
             </div>
           </div>

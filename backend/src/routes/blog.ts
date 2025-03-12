@@ -103,7 +103,7 @@ blogRoutes.get("/bulk", async (c) => {
         date: true,
         edited: true,
         author: {
-          select: { name: true },
+          select: { name: true, id: true },
         },
       },
     });
@@ -139,6 +139,30 @@ blogRoutes.post("/delete", async (c) => {
     return c.json({ id: blog.id, message: "Blog deleted successfully" }, 200);
   } catch (e) {
     return c.json({ message: "Something unexpected occurred" }, 500);
+  }
+});
+
+blogRoutes.get("/user/:user_id", async (c) => {
+  try {
+    const id = c.req.param("user_id");
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    const totalPosts = await prisma.post.findMany({
+      where: {
+        authorId: id,
+      },
+      select: {
+        title: true,
+        id: true,
+        published: true,
+        content: true,
+        date: true,
+      },
+    });
+    return c.json({ totalPosts }, 200);
+  } catch (e) {
+    return c.json({ message: "Something went wrong" }, 500);
   }
 });
 
