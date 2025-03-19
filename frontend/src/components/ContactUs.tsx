@@ -5,8 +5,8 @@ const ContactUs = () => {
   return (
     <div className="flex flex-col md:flex-row items-center overflow-x-hidden justify-center min-h-screen bg-slate-200 backdrop-blur-lg dark:bg-slate-900 py-5">
       <motion.div
-        initial={{ opacity: 0, x: -400 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 400 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5, ease: "easeInOut" }}
         className="w-11/12 md:w-2/5 flex flex-col items-center justify-center border border-gray-300 dark:border-gray-700 rounded-lg hover:shadow-md dark:shadow-purple-500/60 hover:dark:brightness-125 hover:brightness-90 p-5 md:p-10 h-full bg-white dark:bg-slate-800 bg-opacity-30"
       >
