@@ -127,7 +127,7 @@ function Circle() {
 }
 
 export function Avatar({
-  name = "U",
+  name = " ",
   size = "small",
 }: {
   name?: string;

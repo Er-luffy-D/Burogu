@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from "./BlogCard";
-import { useRecoilValue } from "recoil";
-import { infoAtom } from "../store/atom/Information";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { infoAtom, themeAtom } from "../store/atom/Information";
 import { useState, useEffect } from "react";
 import add from "../assets/add.svg";
 import sunIcon from "../assets/light.svg";
@@ -10,76 +10,17 @@ import moonIcon from "../assets/dark.svg";
 import moonIconHover from "../assets/dark1.svg";
 
 export const Appbar = () => {
-  const user = useRecoilValue(infoAtom);
-  const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest(".menu-button") && !target.closest(".menu-content")) {
-        closeMenu();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
     <div className="border-b flex justify-between px-2 md:px-10 py-4 dark:bg-neutral-950 dark:border-gray-800">
       <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl dark:text-white">
-        <Link to={"/blogs"}>BUROGU</Link>
+        <Link to={"/"}>BUROGU</Link>
       </div>
       <div className="flex">
         <Darkmode />
         <Link to={"/publish"} className="mx-2 flex flex-col justify-center">
           <Addbutton />
         </Link>
-        <div className="relative ">
-          <button title="User" onClick={toggleMenu} className="menu-button">
-            <Avatar size={"big"} name={user.name || user.email} />
-          </button>
-          {menuOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-white border rounded shadow-lg menu-content z-50">
-              <Link
-                to="/profile"
-                className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                onClick={closeMenu}
-              >
-                Profile
-              </Link>
-              <Link
-                to="/MyBlogs"
-                className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                onClick={closeMenu}
-              >
-                My Blogs
-              </Link>
-              <button
-                className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("user_info");
-                  closeMenu();
-                  navigate("/signin");
-                }}
-              >
-                Logout
-              </button>
-            </div>
-          )}
-        </div>
+        <Menu />
       </div>
     </div>
   );
@@ -107,6 +48,8 @@ const Addbutton = () => {
 };
 
 const Darkmode = () => {
+  const setTheme = useSetRecoilState(themeAtom);
+
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -124,10 +67,13 @@ const Darkmode = () => {
   const toggleDarkMode = () => {
     if (isDarkMode) {
       document.documentElement.classList.remove("dark");
+
       localStorage.setItem("theme", "light");
+      setTheme("light");
     } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
+      setTheme("dark");
     }
     setIsDarkMode(!isDarkMode);
   };
@@ -159,6 +105,110 @@ const Darkmode = () => {
         alt="dark mode toggle"
         className="h-5 w-5 filter invert dark:invert-0"
       />
+    </div>
+  );
+};
+
+export const LandingNav = ({
+  user,
+}: {
+  user: { email: string; name: string; id: string };
+}) => {
+  return (
+    <div className="border-b flex justify-between px-2 md:px-10 py-4 dark:bg-neutral-950 dark:border-gray-800">
+      <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl dark:text-white">
+        <Link to={"/"}>BUROGU</Link>
+      </div>
+      <div className="flex">
+        <Darkmode />
+        {user.email !== "Unknown" ? (
+          <Menu Landing />
+        ) : (
+          <Link to={"/Signin"} className="mx-2 flex flex-col justify-center">
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-green-600 transition duration-300">
+              Login/SignUp
+            </button>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Menu = ({ Landing = false }) => {
+  const user = useRecoilValue(infoAtom);
+
+  const navigate = useNavigate();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".menu-button") && !target.closest(".menu-content")) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className={`relative ${Landing ? "ml-2" : ""}`}>
+      <button title="User" onClick={toggleMenu} className="menu-button">
+        <Avatar size={"big"} name={user.name || user.email} />
+      </button>
+      {menuOpen && (
+        <div className="absolute right-0 mt-2 w-56 bg-white border rounded shadow-lg menu-content z-50">
+          <Link
+            to="/blogs"
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+            onClick={closeMenu}
+          >
+            Blogs
+          </Link>
+          <Link
+            to="/profile"
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+            onClick={closeMenu}
+          >
+            Profile
+          </Link>
+          <Link
+            to="/MyBlogs"
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+            onClick={closeMenu}
+          >
+            My Blogs
+          </Link>
+          <button
+            className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user_info");
+              closeMenu();
+              if (Landing) {
+                window.location.reload();
+              } else {
+                navigate("/signin");
+              }
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </div>
   );
 };

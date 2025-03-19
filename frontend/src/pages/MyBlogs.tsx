@@ -55,14 +55,14 @@ export const MyBlogs = () => {
               );
             })}
           </div>
-          <div className="flex justify-between  absolute bottom-10 right-1 w-full px-6 dark:bottom-4">
+          {/* <div className="flex justify-between  absolute bottom-10 right-1 w-full px-6 dark:bottom-4">
             <button className="bg-[#F98866] text-white px-4 py-2 rounded hover:bg-[#e07b5e] transition-colors duration-300">
               Previous
             </button>
             <button className="bg-[#F98866] text-white px-4 py-2 rounded hover:bg-[#e07b5e] transition-colors duration-300">
               Next
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
