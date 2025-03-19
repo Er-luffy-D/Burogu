@@ -1,4 +1,4 @@
-import ContactSvg from "../assets/contact.svg";
+import ContactSvg from "../assets/cont.svg";
 
 const ContactUs = () => {
   return (
