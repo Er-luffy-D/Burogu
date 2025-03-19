@@ -7,24 +7,11 @@ import { infoAtom, themeAtom } from "../store/atom/Information";
 import { Testimonial } from "../components/Testimonial";
 import { useNavigate } from "react-router-dom";
 import ContactUs from "../components/ContactUs";
-import { useEffect, useState } from "react";
 
 export const Landing = () => {
   const theme = useRecoilValue(themeAtom);
   const user = useRecoilValue(infoAtom);
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <div>
@@ -52,8 +39,8 @@ export const Landing = () => {
       <div className="min-h-[80vh] flex flex-col align-middle justify-center bg-gray-200 dark:bg-black/95 py-5">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 min-h-screen md:min-h-96 px-5 md:px-10">
           <motion.div
-            initial={isMobile ? {} : { opacity: 0, y: -100 }}
-            whileInView={isMobile ? {} : { opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -100 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6, ease: "easeInOut" }}
             className="font-bold rounded-none md:rounded-lg bg-white dark:bg-slate-800 ring-4 ring-black/35 dark:ring-white/40 relative px-5 py-5 col-span-2"
           >
