@@ -1,9 +1,15 @@
 import ContactSvg from "../assets/cont.svg";
+import { motion } from "framer-motion";
 
 const ContactUs = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-slate-200 backdrop-blur-lg dark:bg-black py-5">
-      <div className="w-full md:w-2/5 flex flex-col items-center justify-center border border-gray-300 dark:border-gray-700 rounded-lg shadow-md dark:shadow-purple-500 p-5 md:p-10  h-full bg-white dark:bg-gray-800 backdrop-filter backdrop-blur-lg bg-opacity-30 dark:bg-opacity-30">
+    <div className="flex flex-col md:flex-row items-center overflow-x-hidden justify-center min-h-screen bg-slate-200 backdrop-blur-lg dark:bg-slate-900 py-5">
+      <motion.div
+        initial={{ opacity: 0, x: -400 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.1, duration: 0.5, ease: "easeInOut" }}
+        className="w-11/12 md:w-2/5 flex flex-col items-center justify-center border border-gray-300 dark:border-gray-700 rounded-lg hover:shadow-md dark:shadow-purple-500/60 hover:dark:brightness-125 hover:brightness-90 p-5 md:p-10 h-full bg-white dark:bg-slate-800 bg-opacity-30"
+      >
         <h2 className="text-2xl md:text-4xl font-bold text-center text-gray-800 dark:text-gray-200 mt-5">
           Contact Us
         </h2>
@@ -69,10 +75,15 @@ const ContactUs = () => {
             </button>
           </div>
         </form>
-      </div>
-      <div className="hidden md:flex w-full md:w-1/2  items-center justify-center p-5 md:p-10  h-full">
-        <img src={ContactSvg} alt="Contact Us" className="w-1/2 md:w-3/4 " />
-      </div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 400 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.1, duration: 0.5, ease: "easeInOut" }}
+        className="hidden md:flex w-full md:w-1/2 items-center justify-center p-5 md:p-10 h-full"
+      >
+        <img src={ContactSvg} alt="Contact Us" className="w-1/2 md:w-3/4" />
+      </motion.div>
     </div>
   );
 };

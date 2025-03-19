@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:opsz,wght@10..72,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+HU:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -79,5 +82,9 @@
 .dark .notebook-paper {
   background: linear-gradient(to bottom, #2d2d2d 30px, #1f1f1f 31px);
   border-left: 2px solid #ff6f61;
+}
+
+.font-playwrite {
+  font-family: 'Playwrite HU', sans-serif;
 }
 

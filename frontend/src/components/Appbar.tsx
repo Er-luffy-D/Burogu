@@ -12,7 +12,7 @@ import moonIconHover from "../assets/dark1.svg";
 export const Appbar = () => {
   return (
     <div className="border-b flex justify-between px-2 md:px-10 py-4 dark:bg-neutral-950 dark:border-gray-800">
-      <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl dark:text-white">
+      <div className="flex flex-col justify-center font-extrabold text-lg md:text-xl dark:text-white ">
         <Link to={"/"}>BUROGU</Link>
       </div>
       <div className="flex">
