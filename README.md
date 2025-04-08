@@ -6,7 +6,9 @@ Burogu is a modern blogging platform built with React, TypeScript, and Vite for 
 - Create and manage blog posts
 - User authentication
 - Responsive design
-- Night mode toggle (future feature)
+- Night mode toggle
+- email verification (pending)
+- Editing posts(pending )
 
 ## Installation
 
