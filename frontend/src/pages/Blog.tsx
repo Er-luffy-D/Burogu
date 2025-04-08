@@ -8,6 +8,8 @@ import { Bounce, toast } from "react-toastify";
 import { PROD_BACKEND_URL } from "../config";
 import axios from "axios";
 import { Toasts } from "../components/Toasts";
+import { useRecoilValue } from "recoil";
+import { infoAtom } from "../store/atom/Information";
 
 export const Blog = () => {
   const { id } = useParams();
@@ -20,6 +22,7 @@ export const Blog = () => {
   );
 };
 const Blogpost = ({ id }: { id: string | undefined }) => {
+  const user = useRecoilValue(infoAtom);
   const requestDelete = async () => {
     try {
       const response = await axios.post(
@@ -39,7 +42,6 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
   };
   const { loading, blog } = useFetchBlog(id);
   const navigate = useNavigate();
-
   const handleDeleteClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     toast.promise(
@@ -115,26 +117,28 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
               </div>
             </div>
           </div>
-          <Reveal>
-            <div className="flex flex-wrap  align-middle mt-5 ml-3">
-              <Reveal>
-                <button
-                  className=" m-2 relative overflow-hidden rounded-md text-xs bg-red-500 dark:bg-red-800 px-4 py-1.5  text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
-                  onClick={handleDeleteClick}
-                >
-                  Delete
-                </button>
-              </Reveal>
-              <Reveal>
-                <button
-                  className=" m-2 relative overflow-hidden rounded-md text-xs bg-slate-400 dark:bg-slate-300 px-4 py-1.5 text-black  transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
-                  onClick={() => navigate(`/edit/${id}`)}
-                >
-                  Edit
-                </button>
-              </Reveal>
-            </div>
-          </Reveal>
+          {blog.author.id === user.id && (
+            <Reveal>
+              <div className="flex flex-wrap  align-middle mt-5 ml-3">
+                <Reveal>
+                  <button
+                    className=" m-2 relative overflow-hidden rounded-md text-xs bg-red-500 dark:bg-red-800 px-4 py-1.5  text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
+                    onClick={handleDeleteClick}
+                  >
+                    Delete
+                  </button>
+                </Reveal>
+                <Reveal>
+                  <button
+                    className=" m-2 relative overflow-hidden rounded-md text-xs bg-slate-400 dark:bg-slate-300 px-4 py-1.5 text-black  transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
+                    onClick={() => navigate(`/edit/${id}`)}
+                  >
+                    Edit
+                  </button>
+                </Reveal>
+              </div>
+            </Reveal>
+          )}
         </div>
       </div>
     </div>

@@ -183,7 +183,7 @@ blogRoutes.get("/:id", async (c) => {
         date: true,
         edited: true,
         author: {
-          select: { name: true, fun_fact: true },
+          select: { name: true, id: true, fun_fact: true },
         },
       },
     });

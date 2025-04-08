@@ -137,6 +137,7 @@ export const useFetchBlog = (id: string | undefined) => {
     edited: boolean;
     author: {
       name: string;
+      id: string;
       fun_fact: string;
     };
   }>({
@@ -146,7 +147,7 @@ export const useFetchBlog = (id: string | undefined) => {
     content: "",
     date: "",
     edited: false,
-    author: { name: "", fun_fact: "" },
+    author: { name: "", id: "", fun_fact: "" },
   });
 
   useEffect(() => {
