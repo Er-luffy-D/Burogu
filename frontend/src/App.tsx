@@ -11,6 +11,7 @@ import { Profile } from "./pages/Profile";
 import RequireAuth from "./components/RequireAuth";
 import { MyBlogs } from "./pages/MyBlogs";
 import "react-toastify/dist/ReactToastify.css";
+import { Edit } from "./pages/Edit";
 
 function App() {
   return (
@@ -40,6 +41,14 @@ function App() {
             element={
               <RequireAuth>
                 <Blog />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/edit/:id"
+            element={
+              <RequireAuth>
+                <Edit />
               </RequireAuth>
             }
           />

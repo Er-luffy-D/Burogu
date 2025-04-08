@@ -1,9 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Appbar } from "../components/Appbar";
 import { Avatar } from "../components/BlogCard";
 import { useFetchBlog } from "../hooks";
 import { Loading_Screen } from "../components/loader";
 import { Reveal } from "../components/Animation";
+import { Bounce, toast } from "react-toastify";
+import { PROD_BACKEND_URL } from "../config";
+import axios from "axios";
+import { Toasts } from "../components/Toasts";
 
 export const Blog = () => {
   const { id } = useParams();
@@ -11,12 +15,58 @@ export const Blog = () => {
     <div>
       <Appbar />
       <Blogpost id={id} />
+      <Toasts />
     </div>
   );
 };
-
 const Blogpost = ({ id }: { id: string | undefined }) => {
+  const requestDelete = async () => {
+    try {
+      const response = await axios.post(
+        `${PROD_BACKEND_URL}/api/v1/blog/delete`,
+        { id: id },
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
   const { loading, blog } = useFetchBlog(id);
+  const navigate = useNavigate();
+
+  const handleDeleteClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    toast.promise(
+      requestDelete().then(() => {
+        setTimeout(() => {
+          navigate("/blogs");
+        }, 1500);
+      }),
+      {
+        pending: "Deleting...",
+        success: "Deleted",
+        error: "Error",
+      },
+      {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      }
+    );
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen dark:bg-gradient-to-b dark:from-gray-800   dark:to-slate-950">
@@ -65,6 +115,26 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
               </div>
             </div>
           </div>
+          <Reveal>
+            <div className="flex flex-wrap  align-middle mt-5 ml-3">
+              <Reveal>
+                <button
+                  className=" m-2 relative overflow-hidden rounded-md text-xs bg-red-500 dark:bg-red-800 px-4 py-1.5  text-white transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
+                  onClick={handleDeleteClick}
+                >
+                  Delete
+                </button>
+              </Reveal>
+              <Reveal>
+                <button
+                  className=" m-2 relative overflow-hidden rounded-md text-xs bg-slate-400 dark:bg-slate-300 px-4 py-1.5 text-black  transition-all duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] active:-translate-y-1 active:scale-x-90 active:scale-y-110"
+                  onClick={() => navigate(`/edit/${id}`)}
+                >
+                  Edit
+                </button>
+              </Reveal>
+            </div>
+          </Reveal>
         </div>
       </div>
     </div>
