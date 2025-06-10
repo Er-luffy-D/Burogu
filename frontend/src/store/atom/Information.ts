@@ -7,5 +7,5 @@ export const infoAtom = atom({
 
 export const themeAtom = atom({
   key: "theme",
-  default: localStorage.getItem("theme"),
+  default: localStorage.getItem("theme") || "dark",
 });
