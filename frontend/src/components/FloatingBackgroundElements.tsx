@@ -5,12 +5,9 @@ export const FloatingBackgroundElements = () => {
 		const container = document.querySelector(".floating-elements-container");
 		if (!container) return;
 
-		// Create elements once
-		const elements = Array.from({ length: 20 }, (_, i) => {
+		const elements = Array.from({ length: 20 }, () => {
 			const element = document.createElement("div");
 			element.className = "floating-element";
-
-			// Set random initial styles
 			const size = Math.random() * 100 + 50;
 			element.style.width = `${size}px`;
 			element.style.height = `${size}px`;
@@ -21,7 +18,6 @@ export const FloatingBackgroundElements = () => {
 			element.style.borderRadius = "0.5rem";
 			element.style.position = "absolute";
 
-			// Set animation
 			const duration = Math.random() * 10 + 10;
 			const yMovement = Math.random() * 100 - 50;
 			const xMovement = Math.random() * 100 - 50;
@@ -30,7 +26,6 @@ export const FloatingBackgroundElements = () => {
         float ${duration}s infinite alternate-reverse
       `;
 
-			// Define keyframes in JS
 			const style = document.createElement("style");
 			style.textContent = `
         @keyframes float {
@@ -47,10 +42,8 @@ export const FloatingBackgroundElements = () => {
 			return element;
 		});
 
-		// Add to DOM
 		elements.forEach((el) => container.appendChild(el));
 
-		// Cleanup
 		return () => {
 			elements.forEach((el) => el.remove());
 		};

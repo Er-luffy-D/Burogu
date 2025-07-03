@@ -43,12 +43,10 @@ export const Landing = () => {
 		return () => window.removeEventListener("mousemove", handleMouseMove);
 	}, [controls]);
 
-	// Crazy hover effect for CTA
 	const [ctaHover, setCtaHover] = useState(false);
 
 	return (
 		<div className="relative overflow-hidden">
-			{/* Floating mouse follower */}
 			<motion.div
 				className="fixed w-64 h-64 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-10 pointer-events-none z-0"
 				animate={{
@@ -62,7 +60,6 @@ export const Landing = () => {
 
 			<LandingNav user={user} />
 
-			{/* Hero section with crazy parallax */}
 			<div
 				ref={heroRef}
 				className="relative w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-black dark:to-stone-900 overflow-hidden"
@@ -133,7 +130,6 @@ export const Landing = () => {
 			</div>
 
 			<div className="min-h-screen bg-gradient-to-b from-white to-gray-100 dark:from-black/95 dark:to-gray-900 py-20 relative overflow-hidden">
-				{/* Floating background elements */}
 				<FloatingBackgroundElements />
 
 				<div className="container mx-auto px-4 relative z-10">
@@ -211,7 +207,6 @@ export const Landing = () => {
 			<Testimonial />
 			<ContactUs />
 
-			{/* Crazy floating action button */}
 			<motion.div className="fixed bottom-8 right-8 z-50" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
 				<button
 					className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl flex items-center justify-center"
