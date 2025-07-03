@@ -5,7 +5,7 @@ import { infoAtom, themeAtom } from "../store/atom/Information";
 import { Loading_Screen } from "../components/loader";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { FiBookOpen, FiCalendar, FiSearch, FiChevronsRight } from "react-icons/fi";
 import { useInView } from "react-intersection-observer";
 
@@ -114,13 +114,13 @@ export const MyBlogs = () => {
 					</motion.div>
 
 					{/* Diagonal Grid Layout */}
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transform rotate-[-2deg] origin-top">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transform  origin-top">
 						<AnimatePresence>
 							{blogs.map((blog, index) => (
 								<motion.div
 									key={blog.id}
 									custom={index}
-									initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50, rotate: -5 }}
+									initial={{ opacity: 0, x: -50, rotate: -5 }}
 									animate={inView ? { opacity: 1, x: 0, rotate: 0 } : {}}
 									exit={{ opacity: 0 }}
 									transition={{
@@ -129,7 +129,7 @@ export const MyBlogs = () => {
 										type: "spring",
 										stiffness: 100,
 									}}
-									className="transform hover:rotate-1 transition-transform duration-300"
+									className="transform hover:rotate-1 rotate-[-2deg]  transition-transform duration-300"
 								>
 									<BlogCard
 										id={blog.id}
@@ -165,102 +165,101 @@ export const MyBlogs = () => {
 			</motion.div>
 
 			{/* Floating Particles (Light Mode Only) */}
-			{theme === "light" && (
-				<div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-					{[...Array(15)].map((_, i) => (
-						<motion.div
-							key={i}
-							className="absolute rounded-full bg-[#F98866] opacity-10"
-							style={{
-								width: Math.random() * 15 + 5,
-								height: Math.random() * 15 + 5,
-								left: `${Math.random() * 100}%`,
-								top: `${Math.random() * 100}%`,
-							}}
-							animate={{
-								y: [0, Math.random() * 100 - 50],
-								x: [0, Math.random() * 100 - 50],
-								rotate: [0, 360],
-							}}
-							transition={{
-								duration: Math.random() * 20 + 10,
-								repeat: Infinity,
-								repeatType: "reverse",
-							}}
-						/>
-					))}
-				</div>
-			)}
+			{theme === "light" && <Particles />}
+		</div>
+	);
+};
+
+const Particles = () => {
+	return (
+		<div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+			{[...Array(15)].map((_, i) => (
+				<motion.div
+					key={i}
+					className="absolute rounded-full bg-[#F98866] opacity-10"
+					style={{
+						width: Math.random() * 15 + 5,
+						height: Math.random() * 15 + 5,
+						left: `${Math.random() * 100}%`,
+						top: `${Math.random() * 100}%`,
+					}}
+					animate={{
+						y: [0, Math.random() * 100 - 50],
+						x: [0, Math.random() * 100 - 50],
+						rotate: [0, 360],
+					}}
+					transition={{
+						duration: Math.random() * 20 + 10,
+						repeat: Infinity,
+						repeatType: "reverse",
+					}}
+				/>
+			))}
 		</div>
 	);
 };
 
 // blog cards
 
-const BlogCard = ({
-	id,
-	title,
-	description,
-	date,
-}: {
-	id: string;
-	title: string;
-	description: string;
-	date: string;
-}) => {
-	const [isHovered, setIsHovered] = useState(false);
-	const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+const BlogCard = memo(
+	({ id, title, description, date }: { id: string; title: string; description: string; date: string }) => {
+		const [isHovered, setIsHovered] = useState(false);
+		const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
-	return (
-		<motion.div
-			ref={ref}
-			initial={{ opacity: 0, y: 50 }}
-			animate={inView ? { opacity: 1, y: 0 } : {}}
-			transition={{ duration: 0.6 }}
-			className="relative h-full"
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
-		>
-			<Link to={`/blog/${id}`} className="block h-full">
-				<motion.div
-					className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden h-full flex flex-col border-2 border-transparent"
-					whileHover={{
-						boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-						borderColor: "#F98866",
-					}}
-					transition={{ type: "spring", stiffness: 300 }}
-				>
-					{/* bar above the card */}
+		return (
+			<motion.div
+				ref={ref}
+				initial={{ opacity: 0, y: 50 }}
+				animate={inView ? { opacity: 1, y: 0 } : {}}
+				transition={{ duration: 0.6 }}
+				className="relative h-full "
+				onMouseEnter={() => setIsHovered(true)}
+				onMouseLeave={() => setIsHovered(false)}
+			>
+				<Link to={`/blog/${id}`} className="block h-full">
 					<motion.div
-						className="absolute top-0 left-2.5 rounded-lg right-0 h-1 bg-gradient-to-r from-[#F98866] to-[#ff9e80]"
-						animate={{ width: isHovered ? "90%" : "30%" }}
-						transition={{ duration: 0.4 }}
-					/>
+						className="bg-white dark:bg-gray-800 -rotate-2 rounded-2xl shadow-lg overflow-hidden h-full flex flex-col border-2 border-transparent"
+						whileInView={{ opacity: 1, rotate: -3 }}
+						initial={{ opacity: 0, rotate: 0 }}
+						whileHover={{
+							boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+							borderColor: "#F98866",
+							rotate: 0,
+						}}
+						transition={{ type: "spring", stiffness: 300 }}
+					>
+						{/* bar above the card */}
+						<motion.div
+							className="absolute top-0 left-2.5 rounded-lg right-0 h-1 bg-gradient-to-r from-[#F98866] to-[#ff9e80]"
+							animate={{ width: isHovered ? "90%" : "30%" }}
+							transition={{ duration: 0.4 }}
+						/>
 
-					<div className="p-6 flex-grow">
-						<motion.h3
-							className="text-2xl font-bold mb-4 text-gray-800 dark:text-white"
-							whileHover={{ color: "#F98866" }}
-							transition={{ duration: 0.2 }}
-						>
-							{title}
-						</motion.h3>
-						<p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3">{description}</p>
-					</div>
-
-					<div className="px-6 pb-6 flex items-center justify-between">
-						<div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-							<FiCalendar className="mr-2" />
-							<span>{date}</span>
+						<div className="p-6 flex-grow">
+							<motion.h3
+								className="text-2xl font-bold mb-4 text-gray-800 dark:text-white"
+								whileHover={{ color: "#F98866" }}
+								transition={{ duration: 0.2 }}
+							>
+								{title}
+							</motion.h3>
+							<p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3">{description}</p>
 						</div>
-						<motion.div animate={{ x: isHovered ? 5 : 0 }} transition={{ type: "spring", stiffness: 500 }}>
-							<div className="w-8 h-8 rounded-full bg-[#F98866] flex items-center justify-center text-white">
-								<FiChevronsRight className="w-4 h-4" />
+
+						<div className="px-6 pb-6 flex items-center justify-between">
+							<div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+								<FiCalendar className="mr-2" />
+								<span>{date}</span>
 							</div>
-						</motion.div>
-					</div>
-				</motion.div>
-			</Link>
-		</motion.div>
-	);
-};
+							<motion.div animate={{ x: isHovered ? 5 : 0 }} transition={{ type: "spring", stiffness: 500 }}>
+								<div className="w-8 h-8 rounded-full bg-[#F98866] flex items-center justify-center text-white">
+									<FiChevronsRight className="w-4 h-4" />
+								</div>
+							</motion.div>
+						</div>
+					</motion.div>
+				</Link>
+			</motion.div>
+		);
+	}
+);
