@@ -13,7 +13,7 @@ import { SignUpButton } from "../components/SignUpButton";
 import { FloatingBackgroundElements } from "../components/FloatingBackgroundElements";
 
 export const Landing = () => {
-	const theme = useRecoilValue(themeAtom);
+	const theme = useRecoilValue(themeAtom) as "light" | "dark";
 	const user = useRecoilValue(infoAtom);
 	const navigate = useNavigate();
 	const controls = useAnimation();
@@ -64,7 +64,7 @@ export const Landing = () => {
 				ref={heroRef}
 				className="relative w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-black dark:to-stone-900 overflow-hidden"
 			>
-				<Squares speed={0.5} squareSize={40} direction="diagonal" theme={theme as "light" | "dark"} />
+				<Squares speed={0.5} squareSize={40} direction="diagonal" theme={theme ? theme : "light"} />
 
 				<motion.div className="w-full absolute flex flex-col items-center justify-center px-4" animate={controls}>
 					<SplitText
