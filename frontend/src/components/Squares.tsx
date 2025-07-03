@@ -22,7 +22,7 @@ const Squares: React.FC<SquaresProps> = ({
 	borderColor,
 	squareSize = 40,
 	hoverFillColor,
-	theme = "dark",
+	theme = "light",
 }) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const requestRef = useRef<number | null>(null);
