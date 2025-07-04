@@ -86,7 +86,7 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
 
 	return (
 		<div className="relative h-full min-h-screen">
-			<FloatingBackgroundElements i={30} />
+			<FloatingBackgroundElements i={Math.max(Math.floor(blog.content.length / 300), 10)} />
 
 			<div className="container mx-auto px-4 py-8 max-w-7xl relative z-10">
 				<motion.button
@@ -183,7 +183,6 @@ const Blogpost = ({ id }: { id: string | undefined }) => {
 	);
 };
 const ContentHtml = ({ text }: { text: string }) => {
-	console.log(text);
 	return (
 		<div
 			className={`

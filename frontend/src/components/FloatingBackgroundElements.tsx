@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 export const FloatingBackgroundElements = ({ i }: { i: number }) => {
+	i = Math.min(i, 40);
 	useEffect(() => {
 		const container = document.querySelector(".floating-elements-container");
 		if (!container) return;
@@ -47,7 +48,7 @@ export const FloatingBackgroundElements = ({ i }: { i: number }) => {
 		return () => {
 			elements.forEach((el) => el.remove());
 		};
-	}, []);
+	}, [i]);
 
 	return (
 		<div className="floating-elements-container absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none" />
