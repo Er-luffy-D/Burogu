@@ -130,7 +130,7 @@ export const Landing = () => {
 			</div>
 
 			<div className="min-h-screen bg-gradient-to-b from-white to-gray-100 dark:from-black/95 dark:to-gray-900 py-20 relative overflow-hidden">
-				<FloatingBackgroundElements />
+				<FloatingBackgroundElements i={20} />
 
 				<div className="container mx-auto px-4 relative z-10">
 					<div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

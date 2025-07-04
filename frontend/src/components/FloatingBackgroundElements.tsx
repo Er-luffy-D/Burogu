@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-export const FloatingBackgroundElements = () => {
+export const FloatingBackgroundElements = ({ i }: { i: number }) => {
 	useEffect(() => {
 		const container = document.querySelector(".floating-elements-container");
 		if (!container) return;
 
-		const elements = Array.from({ length: 20 }, () => {
+		const elements = Array.from({ length: i }, () => {
 			const element = document.createElement("div");
 			element.className = "floating-element";
 			const size = Math.random() * 100 + 50;
